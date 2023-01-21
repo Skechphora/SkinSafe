@@ -1,8 +1,8 @@
 // This is the top level container of the Results page
 
 import React from "react";
-import SearchedIngredients from "../Components/SearchedIngredients";
-import ResultsDisplay from "../Components/ResultsDisplay";
+import SearchedIngredients from "../Components/SearchedIngredients.jsx";
+import ResultsDisplay from "../Components/ResultsDisplay.jsx";
 
 const ResultsPage = () => {
   return (
