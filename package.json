@@ -19,38 +19,37 @@
     "url": "https://github.com/Team-Axolotl-Scratch-Project/Scratch-Project/issues"
   },
   "homepage": "https://github.com/Team-Axolotl-Scratch-Project/Scratch-Project#readme",
-
   "dependencies": {
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-router": "^6.6.2",
-    "react-router-dom": "^6.6.2",
     "react-redux": "^8.0.5",
+    "react-router": "^6.7.0",
+    "react-router-dom": "^6.7.0",
     "redux": "^4.2.0"
   },
   "devDependencies": {
-    "express": "^4.12.3",
-    "webpack": "^5.57.1",
     "@babel/core": "^7.20.12",
     "@babel/preset-env": "^7.20.2",
     "@babel/preset-react": "^7.18.6",
+    "@reduxjs/toolkit": "^1.9.1",
     "babel-loader": "^9.1.2",
     "concurrently": "^6.0.2",
     "cross-env": "^7.0.3",
     "css-loader": "^6.7.3",
+    "dotenv": "^16.0.3",
     "eslint": "^8.32.0",
-    "eslint-plugin-react": "^7.32.1",
     "eslint-import-resolver-webpack": "^0.13.2",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-jsx-a11y": "^6.7.1",
-    "dotenv": "^16.0.3",
+    "eslint-plugin-react": "^7.32.1",
+    "express": "^4.12.3",
     "html-webpack-plugin": "^5.5.0",
     "nodemon": "^2.0.7",
     "sass": "^1.57.1",
     "sass-loader": "^13.2.0",
     "style-loader": "^3.3.1",
+    "webpack": "^5.57.1",
     "webpack-cli": "^4.8.0",
-    "webpack-dev-server": "^4.11.1",
-    "@reduxjs/toolkit": "^1.9.1"
+    "webpack-dev-server": "^4.11.1"
   }
 }
