@@ -9,7 +9,7 @@ render(
   <BrowserRouter>
     <Provider store={store}>
       <App />
-    </Provider>,
-    document.getElementById('root')
-  </BrowserRouter>
+    </Provider>
+  </BrowserRouter>,
+  document.getElementById("root")
 );
