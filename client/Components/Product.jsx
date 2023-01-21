@@ -5,8 +5,10 @@ import React from "react";
 const Product = () => {
   return (
     <div>
-      {/* Currently empty for further ideation of this component based on shape of data from DB*/}
-      <div></div>
+      <img src="" /* We will get this image from state */></img>
+      <h1>{/* we will get the product name from state*/}</h1>
+      <h2>{/* we will get the brand name from state*/}</h2>
+      <body>{/* we will get the ingredients from state*/}</body>
     </div>
   );
 };
