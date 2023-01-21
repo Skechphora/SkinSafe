@@ -6,15 +6,26 @@ require('dotenv').config({ path: './.env' })
 //process env is not working
 const PORT = 3000;
 
+const searchRouter = require('./routes/searchRouter');
 
+/**
+ * handle parsing request body
+ */
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+
+//at homepage - on endpoint main, send main page to front end
 app.get('/', (req, res)=> {
-  res.sendFile(path.resolve(__dirname,'../index.html'))
+  res.sendFile(path.resolve(__dirname,'./index.html'));
 })
 
-//api-route for fetch request, what do we need for route? login
-app.use('/api', (req, res) => {
+//Search
+//receive req(GET) from frontend get data from database and sent it
+app.use('/search', searchRouter);
 
-})
+//Login[stretch]
+
 
 
 
