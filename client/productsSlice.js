@@ -1,9 +1,9 @@
-/* 
+/*
  * Here lives a collection of Redux logic and actions for the component features
  * author: Melody Duan
  */
 
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit';
 
 export const productsSlice = createSlice({
   name: 'products',
@@ -20,9 +20,9 @@ export const productsSlice = createSlice({
     // update the products in the state to render to the page
     update_results: (state, action) => {
       state.results = action.payload;
-    }
-  }
-})
+    },
+  },
+});
 
 export const { update_allergens, update_products } = productsSlice.actions;
 

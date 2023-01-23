@@ -9,9 +9,11 @@ import Error from './Routes/Error.jsx';
 import SearchPage from "./Routes/SearchPage.jsx";
 import ResultsPage from "./Routes/ResultsPage.jsx";
 
+// this sets the root of the DOM
 const domNode = document.getElementById('root');
 const root = createRoot(domNode);
 
+// these are the possible routes react routers knows to use, including a general error page
 const router = createBrowserRouter([
   {
     path: '/',
@@ -28,6 +30,7 @@ const router = createBrowserRouter([
   },
 ]);
 
+// this renders our pages based on the routes above, all within the redux store
 root.render(
   <Provider store={store}>
     <RouterProvider router={router} />
