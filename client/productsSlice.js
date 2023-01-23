@@ -32,7 +32,7 @@ export const fetchProductsByAllergen = () => {
   // note on useSelector vs getState: https://www.reddit.com/r/react/comments/jdbzme/what_is_the_difference_between_getstate_and/
   return async (dispatch, getState) => {
     // split the string of allergens separated by comma into an array of allergens
-    const allergens = getState().products.allergens.split(',');
+    const allergens = getState().products.allergens.replaceAll(' ','').split(',');
     // wait for fetch proimse to resolve before asigning to response 
     const response = await fetch('/api', {
       method: "POST",
