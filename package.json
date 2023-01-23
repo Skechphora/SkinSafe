@@ -27,6 +27,8 @@
     "react-router-dom": "^6.7.0"
   },
   "devDependencies": {
+    "node-fetch": "^2.6.8",
+    "pg": "^8.8.0",
     "@babel/preset-env": "^7.20.2",
     "@babel/preset-react": "^7.18.6",
     "babel-loader": "^9.1.2",
