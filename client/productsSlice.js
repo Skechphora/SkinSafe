@@ -1,9 +1,9 @@
-/* 
+/*
  * Here lives a collection of Redux logic and actions for the component features
  * author: Melody Duan
  */
 
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit';
 
 export const productsSlice = createSlice({
   // this slice of state will be accessible via getState().products
@@ -22,8 +22,8 @@ export const productsSlice = createSlice({
     update_results: (state, action) => {
       state.results = action.payload;
     },
-  }
-})
+  },
+});
 
 /* ========== Redux thunk middleware syntax =========== */
 // the outside custom "thunk creator" function, dispatch this in a React component
