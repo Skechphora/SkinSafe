@@ -6,14 +6,14 @@ import SearchBar from "../Components/SearchBar.jsx";
 const SearchPage = () => {
   return (
     // This line is here and the others commented out to easily demonstrate that react routers work
-    <div>We are in the search page</div>
-    // <div>
-    //   {/* This component renders the Search Bar component */}
-    //   Test text
-    //   <div>
-    //     <SearchBar />
-    //   </div>
-    // </div>
+    // <div>We are in the search page</div>
+    <div>
+      {/* This component renders the Search Bar component */}
+      Test text
+      <div>
+        <SearchBar />
+      </div>
+    </div>
   );
 };
 

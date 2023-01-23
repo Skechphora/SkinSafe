@@ -2,28 +2,27 @@
 
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { update_allergens } from "../productsSlice";
-import 
+import { update_allergens, fetchProductsByAllergen, update_results } from "../productsSlice";
 
-/* const postQuery = (dispatch) => {
-  fetch 
-}; */
 
 const SearchBar = () => {
   // dispatch actions using RTK
-
   const dispatch = useDispatch();
+  
   return (
     <div>
       {/* input field where user can type their allergen */}
       <input placeholder="What should we avoid?" 
-        {/* update state on each key input */}
-        onChange={(e) => dispatch(update_allergens(e.target.value))}
+        onChange={(e) => 
+          /* update state on each key input */
+          dispatch(update_allergens(e.target.value))}
       ></input>
       {/* associated submit button */}
-      <button onClick={(e) => {
-
-        /* send fetch query with data in state */}}>
+      <button 
+        onClick={(e) => {
+          /* send fetch query with current data in state, and save response data to state */
+          dispatch(fetchProductsByAllergen())
+        }}>
         Search
       </button>
     </div>
