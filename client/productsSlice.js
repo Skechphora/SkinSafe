@@ -20,10 +20,10 @@ export const productsSlice = createSlice({
     // update the products in the state to render to the page
     update_results: (state, action) => {
       state.results = action.payload;
-    }
+    },
   }
 })
 
-export const { update_allergens, update_products } = productsSlice.actions;
+export const { update_allergens, update_results } = productsSlice.actions;
 
 export default productsSlice.reducer;
