@@ -8,7 +8,8 @@ module.exports = {
   entry: './client/index.js',
   output: {
     path: path.resolve(__dirname, './build'),
-    filename: 'bundle.js'
+    filename: 'bundle.js',
+    publicPath: '/'
   },
   module: {
     rules: [
@@ -33,10 +34,13 @@ module.exports = {
       directory: path.join(__dirname, 'public'),
     },
     proxy: {
-      '/': 'http://localhost:3000'
+      // Added back /api here to ensure that only requests to /api are sent to back end. All front-end requests must be handled by react routers
+      '/api': 'http://localhost:3000'
   },
     compress: true,
     port: 8080,
+    // This is a nevessary setting to ensure new front-end requests go to react routers
+    historyApiFallback: true
   },
   plugins: [new HtmlWebpackPlugin({
     template: path.resolve(__dirname, './index.html')
