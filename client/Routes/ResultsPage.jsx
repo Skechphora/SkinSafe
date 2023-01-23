@@ -6,18 +6,16 @@ import ResultsDisplay from "../Components/ResultsDisplay.jsx";
 
 const ResultsPage = () => {
   return (
-    // This line is here and the others commented out to easily demonstrate that react routers work
-    <div>We are in the results page</div>
-    // <div>
-    //   {/* This component renders the Searched Ingredients component */}
-    //   <div>
-    //     <SearchedIngredients />
-    //   </div>
-    //   {/* This renders the Results Display component */}
-    //   <div>
-    //     <ResultsDisplay />
-    //   </div>
-    // </div>
+    <div class="results-page">
+      {/* This component renders the Searched Ingredients component */}
+      <div>
+        <SearchedIngredients />
+      </div>
+      {/* This renders the Results Display component */}
+      <div>
+        <ResultsDisplay />
+      </div>
+    </div>
   );
 };
 

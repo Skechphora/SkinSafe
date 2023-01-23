@@ -10,14 +10,16 @@ const SearchBar = () => {
   const dispatch = useDispatch();
   
   return (
-    <div>
+    <div id="search-group">
       {/* input field where user can type their allergen */}
+      <input id="search-bar" placeholder="What should we avoid?"></input>
       <input placeholder="What should we avoid?" 
         onChange={(e) => 
           /* update state on each key input */
           dispatch(update_allergens(e.target.value))}
       ></input>
       {/* associated submit button */}
+      <div><button id="search-button">Search</button></div>
       <button 
         onClick={(e) => {
           /* send fetch query with current data in state, and save response data to state */
