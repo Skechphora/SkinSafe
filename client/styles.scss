@@ -1,1 +1,64 @@
-// added placeholder file, no code yet
+
+.search-page {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  padding: 0 0;
+  border: 0 0;
+  margin: 0 0;
+  top: 0;
+  left: 0;
+  background-image: linear-gradient(
+    to top,
+    rgba(255, 165, 0, 1),
+    rgba(255, 165, 0, 0.3),
+    rgba(255, 165, 0, 0)
+  );
+}
+
+.search-page h1,
+h2 {
+  position: relative;
+  top: 20%;
+  left: center;
+  text-align: center;
+  font-family: Lato;
+}
+
+.search-page body {
+  position: relative;
+  top: 25%;
+}
+
+#search-group {
+  position: relative;
+  left: center;
+  text-align: center;
+}
+
+#search-bar {
+  background-color: white;
+  border: none;
+  border-bottom: 2px solid rgba(0, 0, 255, 0.499);
+  width: 20%;
+  text-align: center;
+  font-family: Lato;
+}
+
+#search-button {
+  background-color: blue;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  padding: 10px 32px;
+  margin: 20px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  font-family: Lato;
+}
+
+#search-button:hover {
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
