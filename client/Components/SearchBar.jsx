@@ -4,11 +4,11 @@ import React from "react";
 
 const SearchBar = () => {
   return (
-    <div>
+    <div id="search-group">
       {/* input field where user can type their allergen */}
-      <input placeholder="What should we avoid?"></input>
+      <input id="search-bar" placeholder="What should we avoid?"></input>
       {/* associated submit button */}
-      <button>Search</button>
+      <div><button id="search-button">Search</button></div>
     </div>
   );
 };
