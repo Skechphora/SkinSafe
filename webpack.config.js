@@ -35,7 +35,7 @@ module.exports = {
     },
     proxy: {
       // Added back /api here to ensure that only requests to /api are sent to back end. All front-end requests must be handled by react routers
-      '/api': 'http://localhost:3000'
+      '/transfer': 'http://localhost:3000'
   },
     compress: true,
     port: 8080,

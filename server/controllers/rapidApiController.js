@@ -7,7 +7,7 @@ module.exports = {
     // console.log(req.body)
     //needs category id 
     try{
-      const url = 'https://sephora.p.rapidapi.com/products/list?categoryId=cat130058&pageSize=60&currentPage=1';
+      const url = 'https://sephora.p.rapidapi.com/products/list?categoryId=cat1230034&pageSize=30&currentPage=1';
       const options = {
         method: 'GET',
         headers: {
@@ -60,7 +60,7 @@ module.exports = {
     }
     };
 
-    for (let i = 3; i < res.locals.PRODUCT_LIST.length; i++) {
+    for (let i = 0; i < res.locals.PRODUCT_LIST.length; i++) {
       // for (let product of res.locals.PRODUCT_LIST) {
         console.log('ran getProductDetail')
       const product = res.locals.PRODUCT_LIST[i]
@@ -89,18 +89,20 @@ module.exports = {
     // first sub_product aka currentSku is pushed into the subproduct array
 
     newProduct.sub_product_list.push({
-      display_name: brand_name + " "+ display_name+ " " + firstName,
+      display_name: brand_name + " "+ display_name,
+      variant: firstName,
       ingredient: productDetail.currentSku.ingredientDesc
     })
 
-    const listOfSkus = Array.isArray(productDetail.regularChildSkus) ? productDetail.regularChildSkus : []
-    // console.log(productDetail.regularChildSkus)
 
-    for (let Sku of listOfSkus) {
+    console.log(productDetail.regularChildSkus)
+    if (productDetail.regularChildSkus)
+    for (let Sku of productDetail.regularChildSkus) {
       const {displayName, ingredientDesc} = Sku
       
       newProduct.sub_product_list.push({
-        display_name: brand_name + " "+ display_name+ " " + displayName,
+        display_name: brand_name + " "+ display_name,
+        variant: displayName,
         ingredient: ingredientDesc
       })
     }
@@ -111,4 +113,6 @@ module.exports = {
   // console.log(res.locals.PRODUCTS) 
   return next()
   }
+
+
 }

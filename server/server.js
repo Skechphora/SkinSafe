@@ -20,9 +20,12 @@ app.get('/', (req, res) => {
 });
 
 app.use('/transfer', transRoute);
-//Search
+
 //receive req(GET) from frontend get data from database and sent it
-// app.use('/search', searchRouter);
+/*app.post('/api', middleware, (req, res) => {
+  res.status(200).json(res.locals.product);
+});
+*/
 //Login[stretch]
 
 //404 not find page, can be put an html page there also, unknown route
