@@ -1,5 +1,12 @@
+// these are sass color variables
 
-.search-page {
+$primary_text: black;
+$secondary_text: rgb(92, 92, 92);
+$tertiary_text: darkgray;
+
+// here is general styling for Search and Results Pages
+.search-page,
+.results-page {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -14,15 +21,17 @@
     rgba(255, 165, 0, 0.3),
     rgba(255, 165, 0, 0)
   );
+  background-size: cover;
+  font-family: Lato;
 }
 
+// Specific styling for Search Page and its elements
 .search-page h1,
-h2 {
+.search-page h2 {
   position: relative;
   top: 20%;
   left: center;
   text-align: center;
-  font-family: Lato;
 }
 
 .search-page body {
@@ -42,7 +51,6 @@ h2 {
   border-bottom: 2px solid rgba(0, 0, 255, 0.499);
   width: 20%;
   text-align: center;
-  font-family: Lato;
 }
 
 #search-button {
@@ -56,9 +64,83 @@ h2 {
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
-  font-family: Lato;
 }
 
 #search-button:hover {
-  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+  box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24),
+    0 17px 50px 0 rgba(0, 0, 0, 0.19);
+}
+
+// Specific styling for Results Page and components
+.results-page {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 3rem;
+}
+
+.results-page img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 16px;
+  width: 50%;
+}
+
+#searched {
+  position: relative;
+  left: 0;
+  text-align: center;
+  width: 100px;
+  border: solid black;
+  border-radius: 10px;
+  padding: 10px 32px;
+  margin: 20px 20px;
+}
+
+ul {
+  display: block;
+  list-style-type: disc;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-inline-start: 0px;
+}
+
+#results {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  right: 0;
+  width: 1163px;
+  overflow-x: scroll;
+  margin-top: 20px;
+}
+
+// Styling for Product cards
+.product {
+  position: relative;
+  width: 30%;
+  height: 630px;
+  border: solid black;
+  border-radius: 10px;
+  padding: 10px 32px;
+  margin: 0px 20px;
+}
+
+.product body {
+  color: $secondary_text;
+  margin: 0;
+  overflow: scroll;
+  height: 400px;
+}
+
+.product h1 {
+  font-size: 1.5rem;
+}
+
+.product h2 {
+  text-align: left;
+  font-size: 1.2rem;
 }
