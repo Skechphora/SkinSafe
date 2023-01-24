@@ -234,6 +234,7 @@ getAllallergen: async (req,res,next) => {
     const arr= ['Water']
     for (let allergen of arr) {
       console.log(allergen)
+      // this ligic is flawed fix it plz
       const command = `SELECT pi.sub_product_id FROM product_ingredient pi INNER JOIN ingredient_list i ON i._id=pi.ingredient_id WHERE i.ingredient=${allergen};`
       const response = await pgSql.query(command);
       res.locals.allergens.push(...response)
