@@ -6,13 +6,15 @@ require('dotenv').config({ path: './.env' })
 const PORT = process.env.PORT
 // const PORT = 3000;
 
-// const searchRouter = require('./routes/searchRouter');
+const dbControllers = require('./controllers/dbControllers');
 
-/**
- * handle parsing request body
- */
+//handle parsing request body
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+//serve the static files from client folder
+app.use(express.static(path.resolve(__dirname, '../client')));
+
 
 //at homepage - on endpoint main, send main page to front end
 app.get('/', (req, res) => {
@@ -21,8 +23,12 @@ app.get('/', (req, res) => {
 
 app.use('/transfer', transRoute);
 //Search
-//receive req(GET) from frontend get data from database and sent it
-// app.use('/search', searchRouter);
+//receive req(POST) from frontend get data from database and sent it
+app.post('/api', dbControllers.getProduct, (req, res) => {
+  res.status(200).json(res.locals.getProduct);
+});
+
+//Stretch, login
 //Login[stretch]
 
 //404 not find page, can be put an html page there also, unknown route
