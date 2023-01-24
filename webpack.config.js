@@ -43,6 +43,6 @@ module.exports = {
     historyApiFallback: true
   },
   plugins: [new HtmlWebpackPlugin({
-    template: path.resolve(__dirname, './index.html')
+    template: path.resolve(__dirname, './client/index.html')
   })],
 };

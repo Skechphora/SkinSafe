@@ -1,8 +1,6 @@
 // This is our highest level, our App page. It renders containers based on the requested route
-
-import React from "react";
-
-import "../styles.scss";
+import React from 'react';
+import '../styles.scss';
 
 const App = (props) => {
   return (
