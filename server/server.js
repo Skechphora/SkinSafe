@@ -1,21 +1,29 @@
 const express = require('express');
 const path = require('path');
+<<<<<<< HEAD
 const app = express();
 const transRoute = require('./routers/transferRouter.js')
 require('dotenv').config({ path: './.env' })
 //env: port, server url & api key
 //const PORT = process.env.PORT
  const PORT = 3000;
+=======
+>>>>>>> dev
 
-const dbControllers = require('./controllers/dbControllers');
+const app = express();
+const transformDataRouter = require('./routers/transferRouter.js');
+
+const dbControllers = require('./controllers/dbController');
+
+const PORT = process.env.PORT;
 
 //handle parsing request body
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-//serve the static files from client folder
-app.use(express.static(path.resolve(__dirname, '../client')));
+app.use('/transfer', transformDataRouter);
 
+<<<<<<< HEAD
 
 //at homepage - on endpoint main, send main page to front end
 app.get('/', (req, res) => {
@@ -26,6 +34,8 @@ app.get('/', (req, res) => {
 });
 
 app.use('/transfer', transRoute);
+=======
+>>>>>>> dev
 //Search
 //receive req(POST) from frontend get data from database and sent it
 
@@ -36,9 +46,6 @@ app.get('/api/getAllProducts', dbControllers.getAllProducts, (req,res)=>{
 app.post('/api', dbControllers.getProduct, (req, res) => {
   res.status(200).json(res.locals.getProduct);
 });
-
-//Stretch, login
-//Login[stretch]
 
 //404 not find page, can be put an html page there also, unknown route
 app.use('*', (req, res, next) => {
@@ -60,5 +67,5 @@ app.use((err, req, res, next) => {
 
 app.listen(PORT, (err) => {
   if (err) console.log(err);
-  else console.log(`Listening to port: ${PORT}`);
+  else console.log(`Listening to port: 3000`);
 });

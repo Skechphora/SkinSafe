@@ -1,7 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-require('dotenv').config({ path: './.env' })
-
+require('dotenv').config({ path: './.env' });
 
 module.exports = {
   mode: 'development',
@@ -9,7 +8,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, './build'),
     filename: 'bundle.js',
-    publicPath: '/'
+    publicPath: '/',
   },
   module: {
     rules: [
@@ -20,14 +19,14 @@ module.exports = {
           loader: 'babel-loader',
           options: {
             presets: ['@babel/preset-env', `@babel/preset-react`],
-          }
-        }
+          },
+        },
       },
       {
         test: /\.s[ac]ss$/i,
-        use: ["style-loader", "css-loader", "sass-loader"],
-      }
-    ]
+        use: ['style-loader', 'css-loader', 'sass-loader'],
+      },
+    ],
   },
   devServer: {
     static: {
@@ -35,14 +34,16 @@ module.exports = {
     },
     proxy: {
       // Added back /api here to ensure that only requests to /api are sent to back end. All front-end requests must be handled by react routers
-      '/api': 'http://localhost:3000'
-  },
+      '/transfer': 'http://localhost:3000',
+    },
     compress: true,
     port: 8080,
     // This is a nevessary setting to ensure new front-end requests go to react routers
-    historyApiFallback: true
+    historyApiFallback: true,
   },
-  plugins: [new HtmlWebpackPlugin({
-    template: path.resolve(__dirname, './index.html')
-  })],
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: path.resolve(__dirname, './index.html'),
+    }),
+  ],
 };

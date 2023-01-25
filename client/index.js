@@ -6,8 +6,8 @@ import './styles.scss';
 import App from './Routes/App (Root).jsx';
 import store from './store.js';
 import Error from './Routes/Error.jsx';
-import SearchPage from "./Routes/SearchPage.jsx";
-import ResultsPage from "./Routes/ResultsPage.jsx";
+import SearchPage from './Routes/SearchPage.jsx';
+import ResultsPage from './Routes/ResultsPage.jsx';
 
 // this sets the root of the DOM
 const domNode = document.getElementById('root');
