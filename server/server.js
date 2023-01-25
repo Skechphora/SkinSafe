@@ -37,10 +37,15 @@ app.get('/', (req, res) => {
 //receive req(POST) from frontend get data from database and sent it
 
 app.get('/api/getAllProducts', dbControllers.getAllProducts, (req,res)=>{
-  console.log('endpoint reached for get request to /api/getAllProducts ')
+  console.log('endpoint reached for GET request to /api/getAllProducts ')
   res.status(200).json(res.locals.getAllProducts)
 })
-app.post('/api', dbControllers.getProduct, (req, res) => {
+app.get('/api/getAllIngredients', dbControllers.getAllProducts, dbControllers.getAllIngredients, (req,res)=>{
+  console.log('endpoint reached for GET request to /api/getAllIngredients ')
+  res.status(200).json(res.locals.productsWithIngredients)
+})
+app.post('/api', dbControllers.getProductExclusive, (req, res) => {
+   console.log('endpoint reached for POST request to /api')
   res.status(200).json(res.locals.getProduct);
 });
 
