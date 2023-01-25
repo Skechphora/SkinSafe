@@ -10,7 +10,7 @@ import ResultsPage from "./Routes/ResultsPage.jsx";
 
 // We're going to use 'BrowserRouter', 'Routes', and 'Route' here 
 // in place of 'createBrowserRouter' and 'RouterProvider'
-// seems like they are functionally the same, but the 'BrowserRouter' and the 'Routes' & 'Route are easier to use
+// Seems like they are functionally the same, but the 'BrowserRouter' and the 'Routes' & 'Route' are easier to use,
 // and easier to visualize to make sense of
 const App = props => {
   return (

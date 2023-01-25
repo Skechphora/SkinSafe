@@ -2,8 +2,8 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { createRoot } from 'react-dom/client';
 import './styles.scss';
-import App from './App.jsx';
-import store from './Reducers/store.js';
+import App from './App';
+import store from './Reducers/store';
 
 // Grabbing the element on 'index.html' with the ID of 'root' to render our 'App' component on
 const rootContainer = document.getElementById('root');
