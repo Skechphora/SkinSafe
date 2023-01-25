@@ -21,7 +21,11 @@ app.get('/api/getAllIngredients', dbControllers.getAllProducts, dbControllers.ge
   console.log('endpoint reached for GET request to /api/getAllIngredients ')
   res.status(200).json(res.locals.productsWithIngredients)
 })
-app.post('/api', dbControllers.getProductExclusive, (req, res) => {
+app.post('/api/getBadProducts', dbControllers.getBadProducts, (req,res)=>{
+  res.status(200).json(res.locals.productsWithBadIngredients)
+})
+
+app.post('/api', dbControllers.getBadProducts, dbControllers.getAllProducts, dbControllers.filter, (req, res) => {
    console.log('endpoint reached for POST request to /api')
   res.status(200).json(res.locals.getProduct);
 });
