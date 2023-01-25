@@ -3,8 +3,9 @@ const path = require('path');
 const app = express();
 const transRoute = require('./routers/transferRouter.js')
 require('dotenv').config({ path: './.env' })
-const PORT = process.env.PORT
-// const PORT = 3000;
+//env: port, server url & api key
+//const PORT = process.env.PORT
+ const PORT = 3000;
 
 const dbControllers = require('./controllers/dbControllers');
 
@@ -18,12 +19,20 @@ app.use(express.static(path.resolve(__dirname, '../client')));
 
 //at homepage - on endpoint main, send main page to front end
 app.get('/', (req, res) => {
+  console.log('at app.get(/) endpoint in server')
+  console.log(res)
+  console.log(req)
   res.sendFile(path.resolve(__dirname, './index.html'));
 });
 
 app.use('/transfer', transRoute);
 //Search
 //receive req(POST) from frontend get data from database and sent it
+
+app.get('/api/getAllProducts', dbControllers.getAllProducts, (req,res)=>{
+  console.log('endpoint reached for get request to /api/getAllProducts ')
+  res.status(200).json(res.locals.getAllProducts)
+})
 app.post('/api', dbControllers.getProduct, (req, res) => {
   res.status(200).json(res.locals.getProduct);
 });

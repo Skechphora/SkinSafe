@@ -1,5 +1,6 @@
 const { Pool } = require('pg');
 require('dotenv').config({ path: './.env' });
+console.log("LOOK AT MEEEE",process.env)
 
 
 const pool = new Pool({
