@@ -8,11 +8,15 @@ const dbControllers = {};
 
 dbControllers.getAllProducts = (req, res, next) =>{
 console.log('inside dbControllers.getAllProducts mw')
-const product_query = 'SELECT pi.sub_product_id FROM product_ingredient pi'
-pgSql.query(product_query).then((data)=>data.json()).then((data) => {
+const product_query = 'SELECT * from sub_product'
+pgSql.query(product_query)
+// .then((data)=>data.json())
+.then((data) => {
   console.log('select all products ' , data.rows);
-  //parse data and pass to res.locals.getallproducts
+  res.locals.getAllProducts = data;
+  next();
 })
+
 .catch((error) => {
     next({
       error : {
