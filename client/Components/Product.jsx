@@ -14,7 +14,7 @@ const Product = (props) => {
   const { brandName, productName, productImage, ingredients } = product;
   // returns a product card with each relevant piece of information
   return (
-    <div class="product">
+    <div className="product">
       <img src= {productImage}></img>
       <h1>{productName}</h1>
       <h2>{brandName}</h2>

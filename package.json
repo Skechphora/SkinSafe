@@ -1,7 +1,7 @@
 {
-  "name": "scratch-project",
+  "name": "skechphora",
   "version": "1.0.0",
-  "description": "Scratch Project, Team Axolotl",
+  "description": "Iteration Project, Team Skechers Shape-Ups (Iterating from Team Axolotl, Scratch Project)",
   "main": "index.js",
   "scripts": {
     "server": "nodemon server/server.js",
@@ -13,12 +13,12 @@
     "type": "git",
     "url": "git+https://github.com/Team-Axolotl-Scratch-Project/Scratch-Project.git"
   },
-  "author": "Melody Duan, Timothy Kwon, Chris Olmsted, Jessica Wang",
+  "author": "Melody Duan, Timothy Kwon, Chris Olmsted, Jessica Wang, Brach Burdick, Francois Denavaut, Stephen Lee",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Team-Axolotl-Scratch-Project/Scratch-Project/issues"
+    "url": "https://github.com/Skechphora/Skechphora/issues"
   },
-  "homepage": "https://github.com/Team-Axolotl-Scratch-Project/Scratch-Project#readme",
+  "homepage": "https://github.com/Skechphora/Skechphora#readme",
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.1",
     "react-dom": "^18.2.0",
