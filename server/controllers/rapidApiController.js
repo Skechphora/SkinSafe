@@ -7,7 +7,7 @@ module.exports = {
     //needs category id
     try {
       const url =
-        'https://sephora.p.rapidapi.com/products/list?categoryId=cat1230034&pageSize=30&currentPage=1';
+        'https://sephora.p.rapidapi.com/products/list?categoryId=cat1230034&pageSize=3';
       const options = {
         method: 'GET',
         headers: {
@@ -17,7 +17,7 @@ module.exports = {
       };
       const response = await fetch(url, options);
       res.locals.raw_product_list = await response.json();
-      // res.locals.raw_product_list = req.body
+
       const { categoryId, products } = res.locals.raw_product_list;
       const category = {
         category_id: categoryId,
@@ -42,7 +42,7 @@ module.exports = {
           reviews: reviews,
         });
       }
-      // console.log(category)
+      console.log(category);
       res.locals.CATEGORY = await category;
       return next();
     } catch (err) {
@@ -68,63 +68,43 @@ module.exports = {
       },
     };
 
+    console.log('Product list in getProductDetail: ' + res.locals.PRODUCT_LIST);
     for (let i = 0; i < res.locals.PRODUCT_LIST.length; i++) {
-      // for (let product of res.locals.PRODUCT_LIST) {
       console.log('ran getProductDetail');
       const product = res.locals.PRODUCT_LIST[i];
-      const {
-        product_id,
-        brand_name,
-        display_name,
-        hero_image,
-        rating,
-        reviews,
-      } = product;
+      const { product_id, brand_name, display_name } = product;
 
       const url = `https://sephora.p.rapidapi.com/products/detail?productId=${product_id}&preferedSku=2210607`;
-
       const response = await fetch(url, options);
-      // console.log(response)
       const productDetail = await response.json();
-      // console.log(productDetail)
 
-      const firstName = productDetail.currentSku.displayName;
+      // Two data that I want
+      // Want to add this category to my product
+      const { ingredientDesc, displayName } = productDetail.currentSku;
+      const category = productDetail.parentCategory.displayName;
+
+      // console.log('Ingredients:');
+      // console.log(ingredientDesc);
+
+      // console.log("Product's details:");
+      // console.log(displayName);
+
+      // TODO in the future
+      // Want to parse these ingredients
+      // console.log("Product's category:");
+      // console.log(category);
 
       // create new list of subproducts
       const newProduct = {
-        product_id: product_id,
-        brand_name: brand_name,
-        display_name: display_name,
-        hero_image: hero_image,
-        rating: rating,
-        reviews: reviews,
-        sub_product_list: [],
+        ...product,
+        sub_product_list: [
+          { variant: displayName, ingredient: ingredientDesc },
+        ],
       };
 
-      // first sub_product aka currentSku is pushed into the subproduct array
-
-      newProduct.sub_product_list.push({
-        display_name: brand_name + ' ' + display_name,
-        variant: firstName,
-        ingredient: productDetail.currentSku.ingredientDesc,
-      });
-
-      console.log(productDetail.regularChildSkus);
-      if (productDetail.regularChildSkus)
-        for (let Sku of productDetail.regularChildSkus) {
-          const { displayName, ingredientDesc } = Sku;
-
-          newProduct.sub_product_list.push({
-            display_name: brand_name + ' ' + display_name,
-            variant: displayName,
-            ingredient: ingredientDesc,
-          });
-        }
       res.locals.CATEGORY.push(newProduct);
     }
-    // console.log(res.locals.CATEGORY)
-    // res.locals.PRODUCTS = newProduct
-    // console.log(res.locals.PRODUCTS)
+
     return next();
   },
 };

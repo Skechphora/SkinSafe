@@ -5,21 +5,22 @@ const router = express.Router();
 
 // transControl.transIngr, transControl.saveIngr,
 // transControl.getProduct_list,transControl.saveIngr,
+
 router.get(
   '/ingredients',
   transControl.getProduct_list,
   apiControl.getProductDetail,
   transControl.transIngr,
-  transControl.saveIngr,
-  transControl.saveSub_product,
-  transControl.JointTable,
+  // transControl.saveIngr,
+  // transControl.saveSub_product,
+  // transControl.JointTable,
   (req, res) => {
     res.send('action happened');
   }
 );
 
 router.get(
-  '/product_list',
+  '/x',
   apiControl.getProductList,
   transControl.transP_list,
   (req, res) => {

@@ -2,86 +2,116 @@ const pgSql = require('../models/pgSqlDatabase.js');
 
 module.exports = {
   getProduct_list: async (req, res, next) => {
+    // FETCH PRODUCT DATA FROM THE DB
     console.log('ran getProdcut_list');
     try {
       const command = 'SELECT * FROM product_list';
       const sqlResponse = await pgSql.query(command);
       const product_list = sqlResponse.rows;
       res.locals.PRODUCT_LIST = product_list;
-      // console.log(res.locals.PRODUCT_LIST);
+
       return next();
     } catch (err) {
       console.log(err);
       return next(err);
     }
-  },
-  //////// STILL NEEDS TO LINK TO RAPID API PLEASE COME BACK TO IT
-  // THIS WHERE RES.LOCALS.CATEGORY COMES TO  THIS MUST BE CHAINED WITH GETPRODUCTDETAIL MIDDLEWARE
+  }, // DONE
+
   transIngr: async (req, res, next) => {
-    res.locals.SORTED_CATEGORY = [];
-    for (let PRODUCT of res.locals.CATEGORY) {
-      const sub_product_list = [];
-      console.log(PRODUCT);
-      const {
-        product_id,
-        brand_name,
-        display_name,
-        hero_image,
-        rating,
-        reviews,
-      } = PRODUCT;
+    const ingredients = [];
+    const ingredientsJson = require('../models/ingredientsDatabase.json');
+    const allIngredients = ingredientsJson.ingredients;
 
-      for (let {
-        ingredient,
-        display_name,
-        variant,
-      } of PRODUCT.sub_product_list) {
-        // this is for testing when the test is done change the source of the data back to rapid api
-        //****************************** MAKE SURE TO GET A INGREDIENTS FROM PREVIOUS FUCNTION  *********************/
-        const obj = {
-          display_name: display_name,
-          variant: variant,
-          ingredient: [],
-        };
+    const finalTest = {};
 
-        if (ingredient !== undefined) {
-          const sort1 = ingredient.split(
-            /<(?:"[^"]*"['"]*|'[^']*'['"]*|[^'">])+>/g
-          );
-          // console.log(sort1)
-          const sort2 = [];
-          for (let str of sort1) {
-            // sort2.push(str.replace(/ /, ""))
-            const str1 = str.split(/, /);
-            sort2.push(...str1);
-          }
-          // console.log(sort2)
-          // const sort3 = []
-          for (let str of sort2) {
-            const [name, description] = str.split(/: /);
-
-            if (name.length) {
-              obj.ingredient.push({
-                ingredient: name,
-                description: description,
-              });
-            }
-          }
-        }
-        sub_product_list.push(obj);
-        // console.log(sub_product_list)
-      }
-      res.locals.SORTED_CATEGORY.push({
-        product_id: product_id,
-        brand_name: brand_name,
-        display_name: display_name,
-        hero_image: hero_image,
-        rating: rating,
-        reviews: reviews,
-        sub_product_list: sub_product_list,
-      });
+    for (const { NAME } of allIngredients) {
+      ingredients.push(NAME);
     }
-    // console.log(res.locals.SORTED_CATEGORY)
+
+    let index = 0;
+    for (const { sub_product_list } of res.locals.CATEGORY) {
+      const paragraphe = sub_product_list[0].ingredient.toUpperCase();
+      finalTest[index] = [];
+
+      for (const { NAME } of allIngredients) {
+        // console.log(paragraphe);
+        if (paragraphe.includes(NAME)) {
+          finalTest[index].push(NAME);
+        }
+      }
+      index++;
+      // console.log(sub_product_list[0].ingredient);
+    }
+
+    // console.log(ingredients);
+    console.log(finalTest);
+
+    res.locals.SORTED_CATEGORY = [];
+
+    // for (let PRODUCT of res.locals.CATEGORY) {
+    //   const sub_product_list = [];
+    //   console.log(PRODUCT.sub_product_list[0].ingredient);
+
+    //   const {
+    //     product_id,
+    //     brand_name,
+    //     display_name,
+    //     hero_image,
+    //     rating,
+    //     reviews,
+    //   } = PRODUCT;
+
+    //   for (let {
+    //     ingredient,
+    //     display_name,
+    //     variant,
+    //   } of PRODUCT.sub_product_list) {
+    //     // this is for testing when the test is done change the source of the data back to rapid api
+    //     //****************************** MAKE SURE TO GET A INGREDIENTS FROM PREVIOUS FUCNTION  *********************/
+    //     const obj = {
+    //       display_name: display_name,
+    //       variant: variant,
+    //       ingredient: [],
+    //     };
+
+    //     if (ingredient !== undefined) {
+    //       const sort1 = ingredient.split(
+    //         /<(?:"[^"]*"['"]*|'[^']*'['"]*|[^'">])+>/g
+    //       );
+    //       // console.log(sort1)
+    //       const sort2 = [];
+    //       for (let str of sort1) {
+    //         // sort2.push(str.replace(/ /, ""))
+    //         const str1 = str.split(/, /);
+    //         sort2.push(...str1);
+    //       }
+    //       // console.log(sort2)
+    //       // const sort3 = []
+    //       for (let str of sort2) {
+    //         const [name, description] = str.split(/: /);
+
+    //         if (name.length) {
+    //           obj.ingredient.push({
+    //             ingredient: name,
+    //             description: description,
+    //           });
+    //         }
+    //       }
+    //     }
+    //     sub_product_list.push(obj);
+    //     // console.log(sub_product_list)
+    //   }
+    //   res.locals.SORTED_CATEGORY.push({
+    //     product_id,
+    //     brand_name,
+    //     display_name,
+    //     hero_image,
+    //     rating,
+    //     reviews,
+    //     sub_product_list,
+    //   });
+    // }
+    // console.log(res.locals.SORTED_CATEGORY);
     return next();
   },
 
@@ -100,23 +130,19 @@ module.exports = {
           reviews,
           sub_product_list,
         } = PRODUCT;
-        // {ingredient_list }
-        // console.log(sub_product_list)
-        // console.log()
-        // const text = `SELECT * FROM ingredient_list`
-        // console.log(res.locals.INGREDIENT_LIST)
+
         for (let obj of sub_product_list) {
           console.log(obj);
           for (let ele of obj.ingredient) {
             const { ingredient, description } = ele;
             console.log(ingredient, description);
-            // const result = await pgSql.query(text)
+
             const result = await pgSql.query(command, [
               ingredient,
               description ? description : null,
             ]);
             console.log(result);
-            // res.locals.result = result;
+            res.locals.result = result;
           }
         }
       }
@@ -133,7 +159,9 @@ module.exports = {
 
   saveSub_product: async (req, res, next) => {
     console.log('is this running?');
-    for (let PRODUCT of res.locals.SORTED_CATEGORY) {
+    // for (let PRODUCT of res.locals.SORTED_CATEGORY) {
+
+    for (let PRODUCT of res.locals.CATEGORY) {
       console.log(PRODUCT);
       const {
         product_id,
@@ -147,7 +175,8 @@ module.exports = {
       for (let obj of sub_product_list) {
         console.log(obj);
         const result = await pgSql.query(
-          `INSERT INTO sub_product (sub_product_id, display_name, hero_image, rating, reviews, product_id, variant) VALUES ($1,$2,$3,$4,$5,$6,$7) ON CONFLICT DO NOTHING`,
+          // `INSERT INTO sub_product (sub_product_id, display_name, hero_image, rating, reviews, product_id, variant) VALUES ($1,$2,$3,$4,$5,$6,$7) ON CONFLICT DO NOTHING`,
+          `INSERT INTO sub_product (sub_product_id, display_name, hero_image, rating, reviews, product_id) VALUES ($1,$2,$3,$4,$5,$6) ON CONFLICT DO NOTHING`,
           [
             product_id + '::' + obj.display_name + obj.variant,
             obj.display_name,
@@ -155,7 +184,7 @@ module.exports = {
             rating,
             reviews,
             product_id,
-            obj.variant,
+            // obj.variant,
           ]
         );
         console.log(result);
@@ -189,7 +218,7 @@ module.exports = {
               product_id + '::' + obj.display_name + obj.variant,
               ingredient,
             ]);
-            // console.log(jointResult)
+            console.log(jointResult);
             console.log('ran saveIngr');
           }
         }
@@ -197,6 +226,7 @@ module.exports = {
     }
     return next();
   },
+
   transP_list: async (req, res, next) => {
     try {
       const Category = await res.locals.CATEGORY;
@@ -246,6 +276,7 @@ module.exports = {
       return next(err);
     }
   },
+
   getAllsubProduct: async (req, res, next) => {
     try {
       console.log('starting query for ingredient ');
@@ -289,6 +320,7 @@ module.exports = {
       return next();
     } catch (err) {}
   },
+
   getAllallergen: async (req, res, next) => {
     try {
       // res.locals.SUB_PRODUCT_LIST
