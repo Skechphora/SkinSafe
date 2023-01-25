@@ -6,14 +6,10 @@ const SearchedIngredients = () => {
   // grabs the allergens from state (set on each search in the SearchBar component)
   let allergens = useSelector(state => state.products.allergens);
 
-  allergens = allergens.replaceAll(' ', '');
-  let allergenArray = allergens.split(',');
-  allergenArray = allergenArray.filter(ingredient => ingredient !== '');
-
   // populates an array of one list item per allergen to render 
   const allergenList = [];
-  for (let i = 0; i < allergenArray.length; i++) {
-    allergenList.push(<p key={i}>* {allergenArray[i]}</p>);
+  for (let i = 0; i < allergens.length; i++) {
+    allergenList.push(<p key={i}>* {allergens[i]}</p>);
   }
   // render all allergens in an unordered list
   return (

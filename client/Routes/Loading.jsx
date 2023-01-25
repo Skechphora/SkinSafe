@@ -9,7 +9,7 @@ const LoadingPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    setTimeout(() => navigate('/results'), 2250);
+    setTimeout(() => navigate('/results'), 2000);
   }, [])
 
   return (

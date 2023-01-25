@@ -17,9 +17,30 @@ body {
 }
 
 // here is general styling for Search and Loading Pages
-.search-page,
+.search-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+  font-family: Lato;
+
+  h1 {
+    font-size: 5rem;
+    color: $primary_text;
+    margin: 0;
+  }
+
+  h2 {
+    font-size: 1.8rem;
+    color: $secondary_text;
+  }
+}
+
 .loading-page {
   display: flex;
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
   height: 100vh;
   font-family: Lato;
@@ -52,33 +73,20 @@ body {
 }
 
 // Specific styling for Search Page and its elements
-.search-page h1,
-.search-page h2 {
-  position: relative;
-  top: 25%;
-  left: center;
-  text-align: center;
-}
-
-.search-page h2 {
-  margin-bottom: 0;
-}
-
-.loading-page {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.search-area {
-  position: relative;
-  top: 30%;
-}
-
 #search-group {
   position: relative;
   left: center;
   text-align: center;
+
+  h5 {
+    margin-bottom: 0.5rem;
+    color: $secondary_text;
+  }
+
+  h6 {
+    margin: 0;
+    color: $secondary_text;
+  }
 }
 
 #search-bar {
@@ -93,10 +101,10 @@ body {
 
 #search-button {
   background-color: rgb(72, 72, 255);
-  border: none;
-  border-radius: 5px;
+  border: 1px solid transparent;
+  border-radius: 0.5rem;
   color: white;
-  padding: 10px 32px;
+  padding: 0.5rem 5rem;
   margin: 20px;
   display: inline-block;
   font-size: 16px;
@@ -105,7 +113,7 @@ body {
 
 #return-to-home-button {
   background-color: rgb(72, 72, 255);
-  border: none;
+  border: 1px solid transparent;
   border-radius: 5px;
   color: white;
   font-size: 1rem;
@@ -115,8 +123,8 @@ body {
 
 #search-button:hover,
 #return-to-home-button:hover {
-  box-shadow: 
-    0 3px 3px 1px rgba(0, 0, 0, 0.24),
+  box-shadow: 0 3px 3px 1px rgba(0, 0, 0, 0.24);
+  border: 1px solid rgb(30, 30, 30);
 }
 
 // Specific styling for Components on the Results Page
