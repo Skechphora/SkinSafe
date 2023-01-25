@@ -5,7 +5,8 @@ $tertiary_text: darkgray;
 
 // here is general styling for Search and Results Pages
 .search-page,
-.results-page {
+.results-page,
+.loading-page {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -28,7 +29,7 @@ $tertiary_text: darkgray;
 .search-page h1,
 .search-page h2 {
   position: relative;
-  top: 20%;
+  top: 25%;
   left: center;
   text-align: center;
 }
@@ -37,9 +38,15 @@ $tertiary_text: darkgray;
   margin-bottom: 0;
 }
 
+.loading-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .search-area {
   position: relative;
-  top: 25%;
+  top: 30%;
 }
 
 #search-group {
@@ -52,7 +59,7 @@ $tertiary_text: darkgray;
   background-color: white;
   border: none;
   border-bottom: 2px solid rgba(0, 0, 255, 0.499);
-  width: 20%;
+  width: 20rem;
   text-align: center;
   padding: 0.5rem;
   border-radius: 0.5rem;

@@ -1,4 +1,4 @@
-// This component lives inside the Results Display component. One each will be created for each returned result
+// This component lives inside the Results Display component. A Product component will be rendered for each returned result
 
 import React from "react";
 import { useSelector } from 'react-redux';

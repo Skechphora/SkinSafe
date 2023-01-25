@@ -5,16 +5,17 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 export const productsSlice = createSlice({
-  // this slice of state will be accessible via getState().products
+  // this slice of state will be accessible via two getState().products:
   name: 'products',
   initialState: {
-    allergens: '',  // getState().products.allergens
-    results: [], // getState()..products.results
+    allergens: '',  // 1. getState().products.allergens
+    results: [], // 2. getState().products.results
   },
-  // RTK allows us to write "mutating" logic in reducers; it doesn't actually mutate the state because it uses a library that detects changes to a "draft state" which produces a new immutable state based off those changes
+  // RTK allows us to write "mutating" logic in reducers; it doesn't actually mutate the state because it uses a library that detects changes to a 
+  // "draft state", which produces a new immutable state based off those changes
   reducers: {
     // update the allergens in the state to prepare for a new search
-    update_allergens: (state, action) => {
+    update_allergens : (state, action) => {
       state.allergens = action.payload;
     },
     // update the products in the state to render to the page

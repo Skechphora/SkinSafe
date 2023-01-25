@@ -31,7 +31,7 @@ module.exports = {
     rules: [
       {
         test: /\.jsx?/, //what files needs to be compiled by checking the file types
-        exclude: /node_modules/,
+        exclude: /(node_modules)/,
         use: {
           loader: 'babel-loader',
           options: {
@@ -44,6 +44,7 @@ module.exports = {
       },
       {
         test: /\.s[ac]ss$/i,
+        exclude: /(node_modules)/,
         use: [
           'style-loader', 
           'css-loader', 

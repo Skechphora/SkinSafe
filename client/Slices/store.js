@@ -3,7 +3,7 @@
  * author: Melody Duan
  */
 import { configureStore } from '@reduxjs/toolkit'
-import productsReducer from './productsSlice.js'
+import productsReducer from './productsSlice'
 
 // create redux store using the configureStore function from the Redux Toolkit
 export default configureStore({
