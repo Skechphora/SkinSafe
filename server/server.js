@@ -15,7 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/transfer', transformDataRouter);
 
 //Search
-//receive req(POST) from frontend get data from database and sent it
+//receive request (POST) from frontend get data from database and sent it
 app.post('/api', dbControllers.getProduct, (req, res) => {
   res.status(200).json(res.locals.getProduct);
 });

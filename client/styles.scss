@@ -3,26 +3,53 @@ $primary_text: black;
 $secondary_text: rgb(92, 92, 92);
 $tertiary_text: darkgray;
 
-// here is general styling for Search and Results Pages
-.search-page,
-.results-page,
-.loading-page {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  padding: 0 0;
-  border: 0 0;
-  margin: 0 0;
-  top: 0;
-  left: 0;
+body {
   background-image: linear-gradient(
     to top,
     rgba(255, 165, 0, 1),
     rgba(255, 165, 0, 0.3),
     rgba(255, 165, 0, 0)
   );
+  height: 100vh;
+  width: 100vw;
+  overflow-x: hidden;
+  margin: 0;
+}
+
+// here is general styling for Search and Loading Pages
+.search-page,
+.loading-page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  font-family: Lato;
+}
+
+// slightly different tyling for the Results Page
+.results-page {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  overflow-y: scroll;
+  width: 100%;
+  background-image: linear-gradient(
+    to top,
+    rgb(255, 213, 135) 65%,
+    rgba(255, 165, 0, 0.3),
+    rgba(255, 165, 0, 0)
+  );
   background-size: cover;
   font-family: Lato;
+  padding: 0.5rem;
+
+    img {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 16px;
+      width: 50%;
+    }
 }
 
 // Specific styling for Search Page and its elements
@@ -82,76 +109,77 @@ $tertiary_text: darkgray;
     0 8px 10px 0 rgba(0, 0, 0, 0.24),
 }
 
-// Specific styling for Results Page and components
-.results-page {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  margin-top: 3rem;
-}
-
-.results-page img {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 16px;
-  width: 50%;
-}
-
+// Specific styling for Components on the Results Page
 #searched {
-  position: relative;
-  left: 0;
-  text-align: center;
-  width: 100px;
+  align-self: flex-start;
   border: solid black;
   border-radius: 10px;
-  padding: 10px 32px;
-  margin: 20px 20px;
+  padding-bottom: 1rem;
+  padding-right: 30px;
+  padding-left: 15px;
+  margin: 20px;
+  margin-left: 8px;
+  width: 15%;
+  position: sticky;
+  top: 0;
 }
 
-ul {
-  display: block;
-  list-style-type: disc;
-  margin-block-start: 1em;
-  margin-block-end: 1em;
-  margin-inline-start: 0px;
-  margin-inline-end: 0px;
-  padding-inline-start: 0px;
+#searched-header {
+  h4 {
+    color: rgb(194, 93, 93);
+    border-bottom: 3px double black;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    font-size: 1.43rem;
+  }
+}
+
+#searched-ingredients {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.8rem;
+  overflow-x: scroll;
+  height: 100%;
+  padding-bottom: 1.5rem;
+
+  p {
+    margin: 0;
+  }
 }
 
 #results {
-  display: flex;
-  flex-direction: row;
-  position: relative;
-  right: 0;
-  width: 1163px;
-  overflow-x: scroll;
+  width: 85%;
   margin-top: 20px;
+  margin-right: 20px;
+  border: solid black;
+  border-radius: 10px;
+}
+
+#product-container {
+  padding: 1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
+  gap: 10px;
 }
 
 // Styling for Product cards
 .product {
-  position: relative;
-  width: 30%;
-  height: 630px;
   border: solid black;
   border-radius: 10px;
-  padding: 10px 32px;
-  margin: 0px 20px;
-}
+  padding: 1rem 2rem;
+  background-color: rgba(240, 240, 240, 0.450);
 
-.product body {
-  color: $secondary_text;
-  margin: 0;
-  overflow: scroll;
-  height: 400px;
-}
+  h1 {
+    font-size: 1.5rem;
+  }
 
-.product h1 {
-  font-size: 1.5rem;
-}
+  h2 {
+    text-align: left;
+    font-size: 1.2rem;
+  }
 
-.product h2 {
-  text-align: left;
-  font-size: 1.2rem;
+  p {
+    color: $secondary_text;
+    margin: 0;
+  }
 }

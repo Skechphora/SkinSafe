@@ -9,11 +9,16 @@ const ResultsPage = () => {
     <div className="results-page">
       {/* This component renders the Searched Ingredients component */}
       <div id="searched">
-        <SearchedIngredients />
+        <div id="searched-header">
+          <h4>Searched Allergens: </h4>
+        </div>
+        <div id="searched-ingredients">
+          <SearchedIngredients />
+        </div>
       </div>
       {/* This renders the Results Display component */}
       <div id="results">
-        <ResultsDisplay />
+          <ResultsDisplay />
       </div>
     </div>
   );

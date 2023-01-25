@@ -5,7 +5,7 @@ import SearchBar from '../Components/SearchBar';
 
 const SearchPage = () => {
   return (
-    <div className="search-page" id="search-page">
+    <div className="search-page">
       {/* This component renders the Search Bar component */}
       <h1>Welcome to SafeFace!</h1>
       <h2>You're one search away from happier skin</h2>

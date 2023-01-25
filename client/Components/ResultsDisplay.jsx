@@ -14,8 +14,10 @@ const ResultsPage_Container = () => {
   }
   // render all products
   return (
-    <div className="productCard">
-      {products}
+    <div id="product-container">
+      {/*Populate a Product component with dummy information to see how it looks like on the results page*/}
+      <Product />
+      {/* {products} */}
     </div>
   );
 };
