@@ -14,6 +14,5 @@ const root = createRoot(rootContainer);
 root.render(
   <Provider store={store}>
     <App />
-    {/* <RouterProvider router={router} /> */}
   </Provider>
 );

@@ -6,7 +6,7 @@ import ResultsDisplay from "../Components/ResultsDisplay.jsx";
 
 const ResultsPage = () => {
   return (
-    <div class="results-page">
+    <div className="results-page">
       {/* This component renders the Searched Ingredients component */}
       <div id="searched">
         <SearchedIngredients />

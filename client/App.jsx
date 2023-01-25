@@ -18,7 +18,7 @@ const App = props => {
       <Routes>
         <Route path='/' element={<SearchPage />}/>
         <Route path='/results' element={<ResultsPage />}/>
-        <Route path='/noroute' element={<Error />}/>
+        <Route path='*' element={<Error />}/>
       </Routes>
     </BrowserRouter>
   );
