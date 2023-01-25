@@ -1,14 +1,13 @@
 const express = require('express');
 const path = require('path');
-<<<<<<< HEAD
-const app = express();
-const transRoute = require('./routers/transferRouter.js')
-require('dotenv').config({ path: './.env' })
-//env: port, server url & api key
-//const PORT = process.env.PORT
- const PORT = 3000;
-=======
->>>>>>> dev
+
+// const app = express();
+// const transRoute = require('./routers/transferRouter.js')
+// require('dotenv').config({ path: './.env' })
+// //env: port, server url & api key
+// //const PORT = process.env.PORT
+//  const PORT = 3000;
+
 
 const app = express();
 const transformDataRouter = require('./routers/transferRouter.js');
@@ -23,7 +22,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use('/transfer', transformDataRouter);
 
-<<<<<<< HEAD
+
 
 //at homepage - on endpoint main, send main page to front end
 app.get('/', (req, res) => {
@@ -33,9 +32,7 @@ app.get('/', (req, res) => {
   res.sendFile(path.resolve(__dirname, './index.html'));
 });
 
-app.use('/transfer', transRoute);
-=======
->>>>>>> dev
+
 //Search
 //receive req(POST) from frontend get data from database and sent it
 
