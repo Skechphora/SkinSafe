@@ -2,7 +2,6 @@
  * Here lives a collection of Redux logic and actions for the component features
  * author: Melody Duan
  */
-
 import { createSlice } from '@reduxjs/toolkit';
 
 export const productsSlice = createSlice({
