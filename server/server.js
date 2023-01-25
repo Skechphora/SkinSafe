@@ -3,16 +3,27 @@ const path = require('path');
 
 const app = express();
 const transformDataRouter = require('./routers/transferRouter.js');
-const APIRouter = require('./routers/APIRouter.js');
 
-require('dotenv').config({ path: './.env' });
+const dbControllers = require('./controllers/dbController');
 
 const PORT = process.env.PORT;
 
+//handle parsing request body
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use('/transfer', transformDataRouter); // Generate the Database from the API call
+app.use('/transfer', transformDataRouter);
+
+//Search
+//receive req(POST) from frontend get data from database and sent it
+app.post('/api', dbControllers.getProduct, (req, res) => {
+  res.status(200).json(res.locals.getProduct);
+});
+
+//404 not find page, can be put an html page there also, unknown route
+app.use('*', (req, res, next) => {
+  res.status(404).json({ error: '404 Page not found' });
+});
 
 //Global Error Handler
 app.use((err, req, res, next) => {
