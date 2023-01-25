@@ -1,22 +1,28 @@
 const express = require('express');
 const path = require('path');
-
 const app = express();
 const transformDataRouter = require('./routers/transferRouter.js');
-
 const dbControllers = require('./controllers/dbController');
-
 const PORT = process.env.PORT;
 
 //handle parsing request body
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
 app.use('/transfer', transformDataRouter);
 
 //Search
 //receive req(POST) from frontend get data from database and sent it
-app.post('/api', dbControllers.getProduct, (req, res) => {
+
+app.get('/api/getAllProducts', dbControllers.getAllProducts, (req,res)=>{
+  console.log('endpoint reached for GET request to /api/getAllProducts ')
+  res.status(200).json(res.locals.getAllProducts)
+})
+app.get('/api/getAllIngredients', dbControllers.getAllProducts, dbControllers.getAllIngredients, (req,res)=>{
+  console.log('endpoint reached for GET request to /api/getAllIngredients ')
+  res.status(200).json(res.locals.productsWithIngredients)
+})
+app.post('/api', dbControllers.getProductExclusive, (req, res) => {
+   console.log('endpoint reached for POST request to /api')
   res.status(200).json(res.locals.getProduct);
 });
 
