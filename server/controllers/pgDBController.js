@@ -18,7 +18,7 @@ module.exports = {
     }
   }, // DONE
 
-  transformIngredientsStringBlock: async (req, res, next) => {
+  transformIngredients: async (req, res, next) => {
     console.log('Running transformIngredientsStringBlock');
     // Access list of ingredients from the JSON file
 
@@ -158,7 +158,7 @@ module.exports = {
           product.target_url,
           product.rating,
           product.review,
-          product.ingredients,
+          product.parsedIngredients,
         ];
 
         const result = await pgSql.query(command, params);

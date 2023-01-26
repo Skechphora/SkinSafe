@@ -5,7 +5,7 @@ module.exports = {
   getProductList: async (req, res, next) => {
     try {
       const url =
-        'https://sephora.p.rapidapi.com/products/list?categoryId=cat150006&pageSize=2&currentPage=5';
+        'https://sephora.p.rapidapi.com/products/list?categoryId=cat150006&pageSize=5&currentPage=2';
       const options = {
         method: 'GET',
         headers: {
