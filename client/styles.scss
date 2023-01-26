@@ -149,13 +149,13 @@ body {
   display: flex;
   flex-direction: column;
   background-color: $secondary_background;
-  border: solid $primary_text;
   border-radius: 0.5rem;
   padding-bottom: 1rem;
   padding-right: 1.3rem;
   padding-left: 1rem;
   margin-left: 0.5rem;
   margin-top: 2rem;
+  box-shadow: 0 3px 3px 1px rgba(0, 0, 0, 0.24);
 }
 
 #searched-header {
@@ -249,5 +249,11 @@ body {
     width: 50%;
     align-self: center;
     margin-right: 1.5rem;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  #searched-container {
+    width: 80%;
   }
 }

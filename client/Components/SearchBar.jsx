@@ -1,8 +1,8 @@
 // This component lives on the search page and contains the search bar and submit button
 import React from 'react';
 import { useNavigate } from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux';
-import { update_allergens, fetchProductsByAllergen, restrictAllergenInputs, update_results } from '../Slices/productsSlice';
+import { useDispatch } from 'react-redux';
+import { update_allergens, fetchProductsByAllergen, restrictAllergenInputs } from '../Slices/productsSlice';
 
 const SearchBar = () => {
   // dispatch actions using RTK
@@ -10,6 +10,11 @@ const SearchBar = () => {
   const navigate = useNavigate();
 
   const clickHandler = () => {
+    // onClick 'clickHandler' for the 'search-button':
+    // We'll restrict the input data to only 5 allergens via the 'restrictAllergenInputs' custom 'thunk creator'
+    // then, we'll dispatch the 'fetchProductsByAllergen' custom 'thunk creator' to POST 
+    // the list of allergens to our server, and wait for a list of product responses back
+    // finally, navigate to the 'loading' page
     dispatch(restrictAllergenInputs());
     dispatch(fetchProductsByAllergen()); 
     navigate('/loading');
@@ -30,11 +35,6 @@ const SearchBar = () => {
       <div>
         <button 
           id="search-button"
-          // on click for the search button:
-          // we'll restrict the input data to only 5 allergens via the 'restrictAllergenInputs' 'thunk creator'
-          // then, we'll dispatch the 'fetchProductsByAllergen' 'thunk creator' to send the list of allergens to our
-          // server, and wait for a list of product responses back
-          // finally, navigate to the 'loading' page
           onClick={() => clickHandler()}
         >Search
         </button>
