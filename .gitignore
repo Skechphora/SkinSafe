@@ -1,0 +1,14 @@
+# general
+.DS_Store
+
+# dependencies
+package-lock.json
+node_modules/
+
+# output from webpack
+build/
+
+# SECRETS
+.env
+
+
