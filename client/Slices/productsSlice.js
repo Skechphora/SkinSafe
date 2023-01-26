@@ -10,6 +10,7 @@ export const productsSlice = createSlice({
   initialState: {
     allergens: '',  // 1. getState().products.allergens
     results: [],    // 2. getState().products.results
+    filteredResults: [] //3. getState().products.filteredResults
   },
   // RTK allows us to write "mutating" logic in reducers; it doesn't actually mutate the state because it uses a library that detects changes to a 
   // "draft state", which produces a new immutable state based off those changes
@@ -22,8 +23,11 @@ export const productsSlice = createSlice({
     update_results: (state, action) => {
       state.results = action.payload;
     },
-  },
-});
+    update_filtered_results:(state,action) => {
+      state.filtered_results = action.payload;
+  }
+}
+})
 
 
 // Dispatching 'restrictAllergenInputs' within the 'SearchBar' component to limit the number of

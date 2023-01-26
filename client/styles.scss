@@ -9,6 +9,13 @@ $tertiary_background: #f4e4e4;
 $allergen: #d45a5a;
 
 body {
+  background-image: linear-gradient(
+    to top,
+    rgba(255, 165, 0, 1),
+    rgba(255, 165, 0, 0.3),
+   rgba(255, 165, 0, 0)
+  );
+ 
   height: 100vh;
   width: 100vw;
   overflow-x: hidden;
@@ -312,4 +319,12 @@ body {
   #searched-container {
     width: 80%;
   }
+}
+
+.brandFilterBox{
+  position: relative;
+  
+}
+.categoryFilterBox{
+  position: relative;
 }

@@ -4,7 +4,8 @@ const pgSql = require('../models/pgSqlDatabase.js')
 const dbControllers = {};
 
 dbControllers.getAllProducts = (req, res, next) =>{
-console.log('inside dbControllers.getAllProducts mw')
+  console.log('getAllProducts')
+// console.log('inside dbControllers.getAllProducts mw')
 const product_query = `
 SELECT products.* , brands.name AS brand_name, categories.category
 FROM products 
@@ -15,7 +16,6 @@ LEFT JOIN categories ON products.category_id = categories._id`
 pgSql.query(product_query)
 // .then((data)=>data.json())
 .then((data) => {
-  console.log('select all products ' , data.rows);
   res.locals.getAllProducts = data.rows;
   return next();
 })
@@ -30,30 +30,39 @@ pgSql.query(product_query)
 }
 
 dbControllers.getAllIngredients = (req, res, next) =>{
-  console.log('within dbControllers.getAllIngredients MWF')
+  console.log('getAllIngredients')
 // TODO: create object with 1 property for each product
   let returnObj = {};
   let allProducts = res.locals.getAllProducts;
 //step 1: get all products
   allProducts.forEach((product) => {
-    console.log('within allProducts.forEach')
+    console.log('allProducts.forEach')
     returnObj[product['product_id']] = [];
   })
 //step 2: make sql query to get all ingredients for each product
-  const ingredient_query = 'SELECT * FROM products LEFT JOIN product__ingredient ON products.product_id = product__ingredient.product_id LEFT JOIN ingredients ON product__ingredient.ingredient_id = ingredients._id'
+  const ingredient_query = 
+  `SELECT * FROM products 
+  LEFT JOIN product__ingredient 
+  ON products.product_id = product__ingredient.product_id 
+  LEFT JOIN ingredients 
+  ON product__ingredient.ingredient_id = ingredients._id`
   // console.log('making ingredient query')
   pgSql.query(ingredient_query)
-    .then((data) => {
-      console.log("query executing in get all ingredients")
+    .then((data) => { 
   //console.log(data.rows)
 //step 3: populate the ingredient array in returnObj by matching the product id's with the keys of the returnObj
-      data.rows.forEach((element) => {
-      returnObj[element['product_id']].push(element.ingredient);
+        console.log('entering data.rows.forEach',returnObj)
+        data.rows.forEach((element) => {
+        //console.log(returnObj[element['product_id']].length)
+        if(!(returnObj[element['product_id']])){ console.log('FOUND THE PROBLEM',element)}
+
+      if(element['product_id'])returnObj[element['product_id']].push(element.ingredient);
       })
+      console.log('exiting data.rows.forEach')
       res.locals.productsWithIngredients = returnObj
       //console.log('we have made it here :/', returnObj)
       allProducts.forEach((product) => {
-        console.log('within allProducts.forEach')
+        //console.log('allproducts.forEach')
         product.ingredientArray = returnObj[product['product_id']];
       })
       //console.log('ALL PRODUCTS WITH INGREDIENTS', allProducts)
@@ -70,24 +79,22 @@ dbControllers.getAllIngredients = (req, res, next) =>{
 }
 
 dbControllers.getBadProducts = (req, res, next) => {
+  console.log('getBadProducts')
   // Get all products containing undesired ingredients
   // store values from req.bod in an array
   // make query to ingredient list to return all products containing these ingredients
    const allergens = req.body.allergens;
-   console.log('passing in')
-  console.log(allergens)
   const query = "SELECT * FROM products LEFT JOIN product__ingredient ON products.product_id = product__ingredient.product_id LEFT JOIN ingredients ON product__ingredient.ingredient_id = ingredients._id WHERE ingredients.ingredient IN ($1,$2,$3,$4,$5)"
   // WHERE ingredient_list.ingredient IN ALLERGENS($1,$2,$3,$4,$5)
   pgSql.query(query, allergens)
   .then((data) => {
-    console.log("query executing in get Bad products?")
-    console.log(data.rows)
     res.locals.badProducts = data.rows
   return next();
 })
 }
 
 dbControllers.filterOut = (req, res, next) => {
+  console.log('filterOut')
 // Requires list of bad products and list of all products
 console.log('inside dbcontrollers.filterOut mwf')
 const allProducts = res.locals.getAllProducts;
@@ -105,7 +112,6 @@ for (const ele of allProducts) {
     }
     if (!isBad) goodProducts.push(ele)
   }
-  console.log('goodProducts =', goodProducts)
   res.locals.filteredProducts = goodProducts
   return next();
 }
