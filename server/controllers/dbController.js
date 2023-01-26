@@ -8,7 +8,7 @@ const dbControllers = {};
 
 dbControllers.getAllProducts = (req, res, next) =>{
 console.log('inside dbControllers.getAllProducts mw')
-const product_query = 'SELECT * from sub_product'
+const product_query = 'SELECT * from products'
 pgSql.query(product_query)
 // .then((data)=>data.json())
 .then((data) => {
