@@ -18,23 +18,23 @@ const ResultsPage = () => {
   return (
     <div className="results-page">
       {/* This component renders the Searched Allergen Header, Searched Ingredients component, and a Return to Home Button */}
-      <div id="searched">
-        <div id="searched-header">
-          <h4>Searched Allergens: </h4>
+       <div id="searched-container"> 
+        <div id="searched">
+          <div id="searched-header">
+            <h4>Searched Allergens: </h4>
+          </div>
+          <div id="searched-ingredients">
+            <SearchedIngredients />
+          </div>
+          <button 
+            id="return-to-home-button"
+            onClick={() => { handleClick(); }}
+          >Return to Home
+          </button>
         </div>
-        <div id="searched-ingredients">
-          <SearchedIngredients />
-        </div>
-        <button 
-          id="return-to-home-button"
-          onClick={() => { handleClick(); }}
-        >Return to Home
-        </button>
       </div>
       {/* This renders the Results Display component(s) */}
-      <div id="results">
-          <ResultsDisplay />
-      </div>
+      <ResultsDisplay />
     </div>
   );
 };

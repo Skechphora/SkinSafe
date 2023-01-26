@@ -9,9 +9,9 @@ const SearchBar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const clickHandler = async () => {
-    await dispatch(restrictAllergenInputs());
-    await dispatch(fetchProductsByAllergen()); 
+  const clickHandler = () => {
+    dispatch(restrictAllergenInputs());
+    dispatch(fetchProductsByAllergen()); 
     navigate('/loading');
   }
   
