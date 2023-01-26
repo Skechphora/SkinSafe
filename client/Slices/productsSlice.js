@@ -23,7 +23,7 @@ export const productsSlice = createSlice({
     update_results: (state, action) => {
       state.results = action.payload;
     },
-    update_filtered_results:(state,action) => {
+    update_filtered_results: (state,action) => {
       state.filtered_results = action.payload;
   }
 }
@@ -53,7 +53,13 @@ export const restrictAllergenInputs = () => {
     }
   }
 }
+// export const filterResults = () =>{
 
+//   return (dispatch, getState) =>{
+//     let filteredProducts = getState().products.filteredResults;
+    
+//   }
+// }
 
 /* ========== Redux thunk middleware syntax =========== */
 // the outside custom "thunk creator" function, dispatch this in a React component
@@ -82,6 +88,6 @@ export const fetchProductsByAllergen = () => {
   }
 
 /** Redux Toolkit createAsyncThunk API syntax */
-export const { update_allergens, update_results } = productsSlice.actions;
+export const { update_allergens, update_results, update_filtered_results } = productsSlice.actions;
 
 export default productsSlice.reducer;
