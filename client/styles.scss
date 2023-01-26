@@ -139,7 +139,7 @@ body {
 
 // Specific styling for Components on the Results Page
 #searched-container {
-  width: 25%;
+  width: 20%;
   align-self: flex-start;
   position: sticky;
   top: 0;
@@ -197,8 +197,9 @@ body {
 
 #product-container {
   display: grid;
+  grid-template-columns: 100%;
   gap: 10px;
-  width: 85%;
+  width: 80%;
   margin: 0.5rem;
   margin-right: 1.5rem;
 }
@@ -216,6 +217,22 @@ body {
     color: $primary_text;
   }
 
+  a {
+    text-decoration: none;
+
+    &:link {
+      color: $primary_text
+    }
+
+    &:visited {
+      color: $primary_text
+    }
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
   h2 {
     text-align: left;
     font-size: 1.25rem;
@@ -225,10 +242,11 @@ body {
   p {
     color: $tertiary_text;
     font-size: 1rem;
+    overflow-wrap: break-word;
   }
 
   img {
-    border-radius: 4.4rem;
+    border-radius: 1rem;
   }
 }
 

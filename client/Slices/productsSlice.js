@@ -37,13 +37,13 @@ export const fetchProductsByAllergen = () => {
 
     // then use promise-chaining on a fetch API to resolve the response from the server, 
     // and to update the 'results' property in our state
-    fetch('/api', {
-      method: "POST",
+    fetch('/api/getAllProducts', {
+      method: "GET",
       headers: {
         'Content-Type': 'application/json'
       },
       // send a JSON object with the key-value pair of 'allergens'
-      body: JSON.stringify({ allergens })
+      // body: JSON.stringify({ allergens })
     })
       .then(response => response.json())
       .then(response => dispatch(update_results(response)))
