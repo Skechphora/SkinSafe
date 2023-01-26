@@ -11,13 +11,14 @@ const ResultsPage_Container = () => {
   const products = [];
   for (let i = 0; i < productList.length; i++) {
     // assign props here to prop-drill down just one component
-    // easier to prop-drill than leverage 'useSelector' on the 'Product' component to extract info we need per product
+    // reason: easier to prop-drill than leverage 'useSelector' on the 'Product' component to extract info we need per product
     products.push(
       <Product 
         key={productList[i]._id}
-        brandName={productList[i].brand_name} 
         imgSrc={productList[i].hero_image}
-        productName={productList[i].product_name}  
+        productName={productList[i].product_name} 
+        category={productList[i].category} 
+        brandName={productList[i].brand_name} 
         ingredients={productList[i].ingredients}
         urlLink={productList[i].target_url} 
       />);
