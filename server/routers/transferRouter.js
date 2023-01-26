@@ -6,14 +6,14 @@ const router = express.Router();
 
 router.get(
   '/products',
-  apiControl.getProductList,
-  transControl.getBrandID,
-  apiControl.getProductDetail,
-  transControl.transformIngredients,
-  transControl.getCategoryID,
-  transControl.transP_list,
-  transControl.saveIngredients,
-  // transControl.jointTable,
+  apiControl.fetchProductList,
+  transControl.extractBrandID,
+  apiControl.fetchProductDetail,
+  transControl.extractIngredients,
+  transControl.extractCategoryID,
+  transControl.insertProducts,
+  transControl.insertIngredients,
+  // transControl.insertProductIngredientJoinTable,
   (req, res) => {
     res.send('action fulfilled');
   }

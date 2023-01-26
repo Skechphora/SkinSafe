@@ -2,10 +2,12 @@ const fetch = require('node-fetch');
 require('dotenv').config({ path: './.env' });
 
 module.exports = {
-  getProductList: async (req, res, next) => {
+  // Product list API call
+
+  fetchProductList: async (req, res, next) => {
     try {
       const url =
-        'https://sephora.p.rapidapi.com/products/list?categoryId=cat150006&pageSize=5&currentPage=2';
+        'https://sephora.p.rapidapi.com/products/list?categoryId=cat150006&pageSize=2&currentPage=3';
       const options = {
         method: 'GET',
         headers: {
@@ -49,7 +51,9 @@ module.exports = {
     }
   },
 
-  getProductDetail: async (req, res, next) => {
+  // Products'details API call
+
+  fetchProductDetail: async (req, res, next) => {
     res.locals.DETAILS = [];
 
     const options = {
