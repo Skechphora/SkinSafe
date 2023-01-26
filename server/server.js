@@ -25,7 +25,7 @@ app.post('/api/getBadProducts', dbControllers.getBadProducts, (req,res)=>{
   res.status(200).json(res.locals.productsWithBadIngredients)
 })
 
-app.post('/api', dbControllers.getBadProducts, dbControllers.getAllProducts, dbControllers.getAllIngredients, dbControllers.filter, (req, res) => {
+app.post('/api/filterOutAllergens', dbControllers.getBadProducts, dbControllers.getAllProducts, dbControllers.getAllIngredients, dbControllers.filterOut, (req, res) => {
    console.log('endpoint reached for POST request to /api')
   res.status(200).json(res.locals.filteredProducts);
 });
