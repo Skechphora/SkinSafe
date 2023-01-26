@@ -5,14 +5,19 @@ const dbControllers = {};
 
 
 
-
 dbControllers.getAllProducts = (req, res, next) =>{
 console.log('inside dbControllers.getAllProducts mw')
-const product_query = 'SELECT * from products'
+const product_query = `
+SELECT products.* , brands.name AS brand_name 
+FROM products 
+LEFT JOIN brands ON products.brand_id = brands._id 
+LEFT JOIN categories ON products.category_id = categories._id`
+// product._id AS _id, brand_id, category_id, ingredients,hero_image, target_url 
+
 pgSql.query(product_query)
 // .then((data)=>data.json())
 .then((data) => {
-  //console.log('select all products ' , data.rows);
+  console.log('select all products ' , data.rows);
   res.locals.getAllProducts = data.rows;
   return next();
 })
