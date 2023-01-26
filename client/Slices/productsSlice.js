@@ -10,6 +10,7 @@ export const productsSlice = createSlice({
   initialState: {
     allergens: '',  // 1. getState().products.allergens
     results: [],    // 2. getState().products.results
+    filteredResults: [] //3. getState().products.filteredResults
   },
   // RTK allows us to write "mutating" logic in reducers; it doesn't actually mutate the state because it uses a library that detects changes to a 
   // "draft state", which produces a new immutable state based off those changes
@@ -22,8 +23,11 @@ export const productsSlice = createSlice({
     update_results: (state, action) => {
       state.results = action.payload;
     },
-  },
-});
+    update_filtered_results:(state,action) => {
+      state.filtered_results = action.payload;
+  }
+}
+})
 
 
 // Dispatching 'restrictAllergenInputs' within the 'SearchBar' component to limit the number of
@@ -35,12 +39,12 @@ export const restrictAllergenInputs = () => {
     let allergens = getState().products.allergens;
     // Check to see if the user had not entered any allergens
     // if so, just update our 'allergens' property in our state to be an empty string
-    if (!allergens.length) dispatch(update_allergens(''))
+    if (!allergens.length) dispatch(update_allergens(['', '', '', '', '']));
     // otherwise, we've some input, and we'll need to turn it into an array by splitting the commas,
     // and to handle any inputs less than 5 allergens by filling in the rest of the array with empty strings
     // to satisfy the DB query requirements
     else {
-      allergens = allergens.replaceAll(' ','').toUpperCase().split(',').slice(0,4);
+      allergens = allergens.replaceAll(' ','').toUpperCase().split(',').slice(0,5);
       while (allergens.length < 5) {
         allergens.push('');
       }

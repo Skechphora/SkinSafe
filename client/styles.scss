@@ -9,6 +9,13 @@ $tertiary_background: #f4e4e4;
 $allergen: #d45a5a;
 
 body {
+  background-image: linear-gradient(
+    to top,
+    rgba(255, 165, 0, 1),
+    rgba(255, 165, 0, 0.3),
+   rgba(255, 165, 0, 0)
+  );
+ 
   height: 100vh;
   width: 100vw;
   overflow-x: hidden;
@@ -210,61 +217,68 @@ body {
 // Styling for Product cards
 .product-card {
   display: flex;
-  // row-gap: 1rem;
   border: solid $primary_text;
   border-radius: 0.5rem;
   padding: 1rem 1.25rem;
   background-color: $secondary_background;
   box-shadow: 0 3px 3px 1px rgba(0, 0, 0, 0.24);
 
-  img {
-    border-radius: 1rem;
-    height: 7.5rem;
-    width: 7.5rem;
+  .product-description {
+    flex-basis: 20rem;
+
+    img {
+      border-radius: 1rem;
+      height: 7.5rem;
+      width: 7.5rem;
+    }
+  
+    h1 {
+      font-size: 1.5rem;
+      color: $primary_text;
+      margin: 0;
+
+      a {
+        text-decoration: none;
+    
+        &:link {
+          color: $primary_text
+        }
+    
+        &:visited {
+          color: $primary_text
+        }
+    
+        &:hover {
+          text-decoration: underline;
+        }
+    
+        &:active {
+          color: $primary_background
+        }
+      }
+    }
+  
+    h2 {
+      text-align: left;
+      font-size: 1.25rem;
+      color: $secondary_text;
+      margin: 0;
+  
+      span {
+        font-size: 1rem;
+      }
+    }
   }
 
-  h1 {
-    font-size: 1.5rem;
-    color: $primary_text;
-    margin: 0;
-  }
+  .product-ingredients {
+    flex-basis: 40rem;
 
-  a {
-    text-decoration: none;
-
-    &:link {
-      color: $primary_text
-    }
-
-    &:visited {
-      color: $primary_text
-    }
-
-    &:hover {
-      text-decoration: underline;
-    }
-
-    &:active {
-      color: $primary_background
-    }
-  }
-
-  h2 {
-    text-align: left;
-    font-size: 1.25rem;
-    color: $secondary_text;
-    margin: 0;
-
-    span {
+    p {
+      color: $tertiary_text;
       font-size: 1rem;
+      margin: 0;
+      text-transform: capitalize;
     }
-  }
-
-  p {
-    color: $tertiary_text;
-    font-size: 1rem;
-    margin: 0;
-    text-transform: capitalize;
   }
 }
 
@@ -296,4 +310,12 @@ body {
   #searched-container {
     width: 80%;
   }
+}
+
+.brandFilterBox{
+  position: relative;
+  
+}
+.categoryFilterBox{
+  position: relative;
 }

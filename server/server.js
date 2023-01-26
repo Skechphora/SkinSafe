@@ -19,16 +19,6 @@ app.get('/api/getAllProducts', dbControllers.getAllProducts, (req, res) => {
   res.status(200).json(res.locals.getAllProducts);
 });
 
-app.get(
-  '/api/getAllIngredients',
-  dbControllers.getAllProducts,
-  dbControllers.getAllIngredients,
-  (req, res) => {
-    console.log('endpoint reached for GET request to /api/getAllIngredients ');
-    res.status(200).json(res.locals.productsWithIngredients);
-  }
-);
-
 app.get('/api/getAllProducts', dbControllers.getAllProducts, (req, res) => {
   console.log('endpoint reached for GET request to /api/getAllProducts ');
   res.status(200).json(res.locals.getAllProducts);
@@ -45,7 +35,6 @@ app.get(
 app.post('/api/getBadProducts', dbControllers.getBadProducts, (req, res) => {
   res.status(200).json(res.locals.productsWithBadIngredients);
 });
-
 app.post(
   '/api/filterOutAllergens',
   dbControllers.getBadProducts,
@@ -57,6 +46,8 @@ app.post(
     res.status(200).json(res.locals.filteredProducts);
   }
 );
+// app.post('/api/filterByCategory', ()=>);
+// app.post('/api/filterByBrand', ()=>);
 
 //404 not find page, can be put an html page there also, unknown route
 app.use('*', (req, res, next) => {
