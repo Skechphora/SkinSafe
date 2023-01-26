@@ -132,7 +132,8 @@ body {
   transition-duration: 0.2s;
 }
 
-#return-to-home-button {
+#return-to-home-button,
+#filter-button {
   background-color: $primary_background;
   border: 1px solid transparent;
   border-radius: 5px;
@@ -144,7 +145,8 @@ body {
 }
 
 #search-button:hover,
-#return-to-home-button:hover {
+#return-to-home-button:hover,
+#filter-button:hover {
   box-shadow: 0 1px 1px 2px rgba(0, 0, 0, 0.2);
   border: 1px solid $primary_background;
   background-color: $tertiary_background;
@@ -183,7 +185,7 @@ body {
 }
 
 #searched-ingredients,
-#filter-options {
+#filter-form {
   display: flex;
   flex-direction: column;
   row-gap: 0.8rem;
@@ -335,6 +337,10 @@ body {
 
   #filter-options {
     width: 50%;
+  }
+
+  #filter-form {
+    height: 68%;
   }
 
   #product-container {

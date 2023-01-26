@@ -10,7 +10,7 @@ export const productsSlice = createSlice({
   initialState: {
     allergens: '',  // 1. getState().products.allergens
     results: [],    // 2. getState().products.results
-    filteredResults: [] //3. getState().products.filteredResults
+    storedResults: [] // 3. getState().products.storedResults
   },
   // RTK allows us to write "mutating" logic in reducers; it doesn't actually mutate the state because it uses a library that detects changes to a 
   // "draft state", which produces a new immutable state based off those changes
@@ -23,12 +23,15 @@ export const productsSlice = createSlice({
     update_results: (state, action) => {
       state.results = action.payload;
     },
-    update_filtered_results: (state,action) => {
-      state.filtered_results = action.payload;
+    // Stretch-Feature: filtering and unfiltering results by Brand/Product
+    update_stored_results: (state,action) => {
+      state.storedResults = action.payload;
   }
 }
 })
 
+
+/* ========== Redux thunk middleware syntax =========== */
 
 // Dispatching 'restrictAllergenInputs' within the 'SearchBar' component to limit the number of
 // allergen inputs to only 5 when the submit button is pressed.
@@ -37,7 +40,7 @@ export const productsSlice = createSlice({
 export const restrictAllergenInputs = () => {
   return (dispatch, getState) => {
     let allergens = getState().products.allergens;
-    console.log(allergens);
+
     // Check to see if the user had not entered any allergens
     // if so, just update our 'allergens' property in our state to be an empty string
     if (!allergens.length) dispatch(update_allergens(['', '', '', '', '']));
@@ -53,15 +56,8 @@ export const restrictAllergenInputs = () => {
     }
   }
 }
-// export const filterResults = () =>{
 
-//   return (dispatch, getState) =>{
-//     let filteredProducts = getState().products.filteredResults;
-    
-//   }
-// }
 
-/* ========== Redux thunk middleware syntax =========== */
 // the outside custom "thunk creator" function, dispatch this in a React component
 export const fetchProductsByAllergen = () => {
   // the inside "thunk function"
@@ -82,12 +78,15 @@ export const fetchProductsByAllergen = () => {
       body: JSON.stringify({ allergens })
     })
       .then(response => response.json())
-      .then(response => dispatch(update_results(response)))
+      .then(response => {
+        dispatch(update_results(response))
+        dispatch(update_stored_results(response))
+      })
       .catch(err => console.log(err));
     }
   }
 
 /** Redux Toolkit createAsyncThunk API syntax */
-export const { update_allergens, update_results, update_filtered_results } = productsSlice.actions;
+export const { update_allergens, update_results, update_stored_results } = productsSlice.actions;
 
 export default productsSlice.reducer;
