@@ -29,20 +29,19 @@ const ResultsPage = () => {
           <div id="searched-header">
             <h4>Searched Allergens: </h4>
           </div>
-          <div id="searched-ingredients">
-            <SearchedIngredients />
+          <div id="searched-body-and-filter">
+            <div id="searched-ingredients">
+              <SearchedIngredients />
+            </div>
+            <div id="filter-options">
+              <FilterComponent />
+            </div>
           </div>
-          <div id="searched-ingredients">
-          <FilterComponent />
-          </div>
-          
-
           <button 
             id="return-to-home-button"
             onClick={() => { handleClick(); }}
           >Return to Home
           </button>
-
         </div>
       </div>
       {/* This part renders the Results Display component(s) */}
