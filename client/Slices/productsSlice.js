@@ -34,10 +34,12 @@ export const fetchProductsByAllergen = () => {
     // split the string of allergens separated by comma into an array of allergens
     const allergens = getState().products.allergens;
 
+    // do some error-handling here, if there were no allergens entered then let's just
+    // update the results property in our store to stay as an empty array
     if (!allergens.length) dispatch(update_results([]))
+    // otherwise use promise-chaining to resolve the response from the server, 
+    // and to update the 'Results' property in our state
     else {
-      // use promise-chaining to resolve the response from the server, and to update the 'Results' property
-      // in our state with the response
       fetch('/api', {
         method: "POST",
         headers: {
