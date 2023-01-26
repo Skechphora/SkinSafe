@@ -35,12 +35,12 @@ export const restrictAllergenInputs = () => {
     let allergens = getState().products.allergens;
     // Check to see if the user had not entered any allergens
     // if so, just update our 'allergens' property in our state to be an empty string
-    if (!allergens.length) dispatch(update_allergens(''))
+    if (!allergens.length) dispatch(update_allergens(['', '', '', '', '']));
     // otherwise, we've some input, and we'll need to turn it into an array by splitting the commas,
     // and to handle any inputs less than 5 allergens by filling in the rest of the array with empty strings
     // to satisfy the DB query requirements
     else {
-      allergens = allergens.replaceAll(' ','').toUpperCase().split(',').slice(0,4);
+      allergens = allergens.replaceAll(' ','').toUpperCase().split(',').slice(0,5);
       while (allergens.length < 5) {
         allergens.push('');
       }
