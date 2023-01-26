@@ -40,7 +40,12 @@ dbControllers.getAllIngredients = (req, res, next) =>{
     returnObj[product['product_id']] = [];
   })
 //step 2: make sql query to get all ingredients for each product
-  const ingredient_query = 'SELECT * FROM products LEFT JOIN product__ingredient ON products.product_id = product__ingredient.product_id LEFT JOIN ingredients ON product__ingredient.ingredient_id = ingredients._id'
+  const ingredient_query = 
+  `SELECT * FROM products 
+  LEFT JOIN product__ingredient 
+  ON products.product_id = product__ingredient.product_id 
+  LEFT JOIN ingredients 
+  ON product__ingredient.ingredient_id = ingredients._id`
   // console.log('making ingredient query')
   pgSql.query(ingredient_query)
     .then((data) => {
