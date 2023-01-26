@@ -1,23 +1,33 @@
 const express = require('express');
 const path = require('path');
-
 const app = express();
 const transformDataRouter = require('./routers/transferRouter.js');
-
 const dbControllers = require('./controllers/dbController');
-
 const PORT = process.env.PORT;
 
 //handle parsing request body
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
 app.use('/transfer', transformDataRouter);
 
 //Search
-//receive request (POST) from frontend get data from database and sent it
-app.post('/api', dbControllers.getProduct, (req, res) => {
-  res.status(200).json(res.locals.getProduct);
+//receive req(POST) from frontend get data from database and sent it
+
+app.get('/api/getAllProducts', dbControllers.getAllProducts, (req,res)=>{
+  console.log('endpoint reached for GET request to /api/getAllProducts ')
+  res.status(200).json(res.locals.getAllProducts)
+})
+app.get('/api/getAllIngredients', dbControllers.getAllProducts, dbControllers.getAllIngredients, (req,res)=>{
+  console.log('endpoint reached for GET request to /api/getAllIngredients ')
+  res.status(200).json(res.locals.getAllProducts)
+})
+app.post('/api/getBadProducts', dbControllers.getBadProducts, (req,res)=>{
+  res.status(200).json(res.locals.productsWithBadIngredients)
+})
+
+app.post('/api', dbControllers.getBadProducts, dbControllers.getAllProducts, dbControllers.getAllIngredients, dbControllers.filter, (req, res) => {
+   console.log('endpoint reached for POST request to /api')
+  res.status(200).json(res.locals.filteredProducts);
 });
 
 //404 not find page, can be put an html page there also, unknown route
