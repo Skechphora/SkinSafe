@@ -35,20 +35,13 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: [
-              '@babel/preset-env', 
-              `@babel/preset-react`
-            ],
+            presets: ['@babel/preset-env', `@babel/preset-react`],
           },
         },
       },
       {
         test: /\.s[ac]ss$/i,
-        use: [
-          'style-loader', 
-          'css-loader', 
-          'sass-loader'
-        ],
+        use: ['style-loader', 'css-loader', 'sass-loader'],
       },
     ],
   },
@@ -59,9 +52,10 @@ module.exports = {
     }),
   ],
   resolve: {
-    extensions: [ // Enable importing .js and .jsx files without specifying their extension
+    extensions: [
+      // Enable importing .js and .jsx files without specifying their extension
       '.js',
-      '.jsx'
+      '.jsx',
     ],
   },
 };

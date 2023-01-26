@@ -3,11 +3,9 @@ require('dotenv').config({ path: './.env' });
 
 module.exports = {
   getProductList: async (req, res, next) => {
-    // console.log(req.body)
-    //needs category id
     try {
       const url =
-        'https://sephora.p.rapidapi.com/products/list?categoryId=cat1230034&pageSize=3';
+        'https://sephora.p.rapidapi.com/products/list?categoryId=cat150006&pageSize=2&currentPage=5';
       const options = {
         method: 'GET',
         headers: {
@@ -15,35 +13,29 @@ module.exports = {
           'X-RapidAPI-Host': 'sephora.p.rapidapi.com',
         },
       };
-      const response = await fetch(url, options);
-      res.locals.raw_product_list = await response.json();
 
-      const { categoryId, products } = res.locals.raw_product_list;
-      const category = {
-        category_id: categoryId,
-        product_list: [],
-      };
-      // console.log(category, products)
+      const response = await fetch(url, options);
+      const data = await response.json();
+      const { products } = data;
+
+      const PRODUCTS = [];
+
       for (let product of products) {
-        const {
-          productId,
-          brandName,
-          displayName,
-          heroImage,
-          rating,
-          reviews,
-        } = product;
-        category.product_list.push({
-          product_id: productId,
-          brand_name: brandName,
-          display_name: displayName,
-          hero_image: heroImage,
-          rating: rating,
-          reviews: reviews,
-        });
+        const formatedProduct = {
+          product_id: product.productId,
+          product_name: product.displayName,
+          brand_id: product.brandName,
+          category_id: 0,
+          hero_image: product.heroImage,
+          target_url: product.targetUrl,
+          rating: product.rating,
+          review: product.reviews,
+        };
+
+        PRODUCTS.push(formatedProduct);
       }
-      console.log(category);
-      res.locals.CATEGORY = await category;
+
+      res.locals.PRODUCTS = await PRODUCTS;
       return next();
     } catch (err) {
       const error = {
@@ -58,7 +50,7 @@ module.exports = {
   },
 
   getProductDetail: async (req, res, next) => {
-    res.locals.CATEGORY = [];
+    res.locals.DETAILS = [];
 
     const options = {
       method: 'GET',
@@ -68,11 +60,8 @@ module.exports = {
       },
     };
 
-    console.log('Product list in getProductDetail: ' + res.locals.PRODUCT_LIST);
-    for (let i = 0; i < res.locals.PRODUCT_LIST.length; i++) {
-      console.log('ran getProductDetail');
-      const product = res.locals.PRODUCT_LIST[i];
-      const { product_id, brand_name, display_name } = product;
+    for (const [i, product] of res.locals.PRODUCTS.entries()) {
+      const { product_id } = product;
 
       const url = `https://sephora.p.rapidapi.com/products/detail?productId=${product_id}&preferedSku=2210607`;
       const response = await fetch(url, options);
@@ -80,31 +69,21 @@ module.exports = {
 
       // Two data that I want
       // Want to add this category to my product
-      const { ingredientDesc, displayName } = productDetail.currentSku;
+      //
+      const { ingredientDesc } = productDetail.currentSku;
       const category = productDetail.parentCategory.displayName;
-
-      // console.log('Ingredients:');
-      // console.log(ingredientDesc);
-
-      // console.log("Product's details:");
-      // console.log(displayName);
-
-      // TODO in the future
-      // Want to parse these ingredients
-      // console.log("Product's category:");
-      // console.log(category);
 
       // create new list of subproducts
       const newProduct = {
         ...product,
-        sub_product_list: [
-          { variant: displayName, ingredient: ingredientDesc },
-        ],
+        category_id: category,
+        ingredients: ingredientDesc,
       };
 
-      res.locals.CATEGORY.push(newProduct);
+      res.locals.DETAILS.push(newProduct);
     }
 
+    // console.log(res.locals.DETAILS);
     return next();
   },
 };

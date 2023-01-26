@@ -8,21 +8,29 @@ const PORT = process.env.PORT;
 //handle parsing request body
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Only for Database stuff
 app.use('/transfer', transformDataRouter);
 
 //Search
 //receive req(POST) from frontend get data from database and sent it
+app.get('/api/getAllProducts', dbControllers.getAllProducts, (req, res) => {
+  console.log('endpoint reached for GET request to /api/getAllProducts ');
+  res.status(200).json(res.locals.getAllProducts);
+});
 
-app.get('/api/getAllProducts', dbControllers.getAllProducts, (req,res)=>{
-  console.log('endpoint reached for GET request to /api/getAllProducts ')
-  res.status(200).json(res.locals.getAllProducts)
-})
-app.get('/api/getAllIngredients', dbControllers.getAllProducts, dbControllers.getAllIngredients, (req,res)=>{
-  console.log('endpoint reached for GET request to /api/getAllIngredients ')
-  res.status(200).json(res.locals.productsWithIngredients)
-})
+app.get(
+  '/api/getAllIngredients',
+  dbControllers.getAllProducts,
+  dbControllers.getAllIngredients,
+  (req, res) => {
+    console.log('endpoint reached for GET request to /api/getAllIngredients ');
+    res.status(200).json(res.locals.productsWithIngredients);
+  }
+);
+
 app.post('/api', dbControllers.getProductExclusive, (req, res) => {
-   console.log('endpoint reached for POST request to /api')
+  console.log('endpoint reached for POST request to /api');
   res.status(200).json(res.locals.getProduct);
 });
 

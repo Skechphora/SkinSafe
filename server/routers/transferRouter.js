@@ -10,19 +10,24 @@ router.get(
   '/ingredients',
   transControl.getProduct_list,
   apiControl.getProductDetail,
-  transControl.transIngr,
-  // transControl.saveIngr,
+  transControl.transformIngredientsStringBlock,
+  transControl.getCategoryID,
   // transControl.saveSub_product,
-  // transControl.JointTable,
   (req, res) => {
     res.send('action happened');
   }
 );
 
 router.get(
-  '/x',
+  '/products',
   apiControl.getProductList,
-  transControl.transP_list,
+  transControl.getBrandID,
+  apiControl.getProductDetail,
+  transControl.transformIngredientsStringBlock,
+  transControl.getCategoryID,
+  // transControl.transP_list,
+  transControl.saveIngredients,
+  transControl.jointTable,
   (req, res) => {
     res.send('action fulfilled');
   }
