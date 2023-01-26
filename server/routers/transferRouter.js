@@ -13,7 +13,7 @@ router.get(
   transControl.extractCategoryID,
   transControl.insertProducts,
   transControl.insertIngredients,
-  // transControl.insertProductIngredientJoinTable,
+  transControl.insertProductIngredientJoinTable,
   (req, res) => {
     res.send('action fulfilled');
   }

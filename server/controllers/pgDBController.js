@@ -190,17 +190,19 @@ module.exports = {
     const commandJoint = `
       INSERT INTO product__ingredient (product_id, ingredient_id) 
       VALUES (
-        (SELECT _id 
+        (SELECT product_id 
          FROM products
-         WHERE product_id=$1),
+         WHERE product_id = $1),
+
         (SELECT _id 
          FROM ingredients 
-         WHERE ingredient=$2)
+         WHERE ingredient = $2)
       ) 
       ON CONFLICT DO NOTHING`;
 
     for (let product of res.locals.PRODUCTS) {
       for (let ingredient of product.parsedIngredients) {
+        console.log(product.product_id, ingredient);
         const jointResult = await pgSql.query(commandJoint, [
           product.product_id,
           ingredient,
