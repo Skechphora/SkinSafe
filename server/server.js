@@ -28,8 +28,8 @@ app.post('/api/filterOutAllergens', dbControllers.getBadProducts, dbControllers.
    console.log('endpoint reached for POST request to /api')
   res.status(200).json(res.locals.filteredProducts);
 });
-app.post('/api/filterByCategory', ()=>);
-app.post('/api/filterByBrand', ()=>);
+// app.post('/api/filterByCategory', ()=>);
+// app.post('/api/filterByBrand', ()=>);
 
 //404 not find page, can be put an html page there also, unknown route
 app.use('*', (req, res, next) => {
