@@ -79,7 +79,8 @@ dbControllers.getBadProducts = (req, res, next) => {
   // store values from req.bod in an array
   // make query to ingredient list to return all products containing these ingredients
    const allergens = req.body.allergens;
-   console.log('passing in')
+   
+   console.log('passing in', req.body.allergens)
   console.log(allergens)
   const query = "SELECT * FROM products LEFT JOIN product__ingredient ON products.product_id = product__ingredient.product_id LEFT JOIN ingredients ON product__ingredient.ingredient_id = ingredients._id WHERE ingredients.ingredient IN ($1,$2,$3,$4,$5)"
   // WHERE ingredient_list.ingredient IN ALLERGENS($1,$2,$3,$4,$5)
