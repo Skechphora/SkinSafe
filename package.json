@@ -2,7 +2,7 @@
   "name": "skechphora",
   "version": "1.0.0",
   "description": "Iteration Project, Team Skechers Shape-Ups (Iterating from Team Axolotl, Scratch Project)",
-  "main": "index.js",
+  "main": "./client/index.js",
   "scripts": {
     "server": "nodemon server/server.js",
     "build": "webpack",

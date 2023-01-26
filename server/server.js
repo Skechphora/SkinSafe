@@ -50,5 +50,5 @@ app.use((err, req, res, next) => {
 
 app.listen(PORT, (err) => {
   if (err) console.log(err);
-  else console.log(`Listening to port: 3000`);
+  else console.log(`Listening to port: ${PORT}`);
 });

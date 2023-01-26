@@ -1,7 +1,7 @@
 // This component lives on the results page and displays one Product component for each product
 
-import React from "react";
-import Product from "./Product.jsx";
+import React from 'react';
+import Product from './Product';
 import { useSelector } from 'react-redux';
 
 const ResultsPage_Container = () => {
@@ -13,7 +13,13 @@ const ResultsPage_Container = () => {
     products.push(<Product id={productList[i].product_id}/>);
   }
   // render all products
-  return [products];
+  return (
+    <div id="product-container">
+      {/*Populate a Product component with dummy information to see how it looks like on the results page*/}
+      <Product />
+      {/* {products} */}
+    </div>
+  );
 };
 
 export default ResultsPage_Container;

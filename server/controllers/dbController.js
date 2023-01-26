@@ -120,7 +120,13 @@ dbControllers.getProduct = (req, res, next) => {
 
   //this query return product id given string===desired ingredient
   //get info from request, (one ingredient name), and product query is return products that contians the allergons
-    const product_query = 'SELECT DISTINCT pi.sub_product_id FROM product_ingredient pi iNNER JOIN ingredient_list i ON pi.ingredient_id=i._id WHERE i.ingredient=$1';
+    const product_query = `
+      SELECT DISTINCT pi.sub_product_id 
+      FROM product_ingredient pi 
+      INNER JOIN ingredient_list i 
+      ON pi.ingredient_id=i._id 
+      WHERE i.ingredient=$1
+      `;
 
     pgSql.query(product_query, params).then((data) => {
       console.log(data.rows);
