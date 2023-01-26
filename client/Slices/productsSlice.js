@@ -33,6 +33,7 @@ export const productsSlice = createSlice({
 export const restrictAllergenInputs = () => {
   return (dispatch, getState) => {
     let allergens = getState().products.allergens;
+    console.log(allergens);
     // Check to see if the user had not entered any allergens
     // if so, just update our 'allergens' property in our state to be an empty string
     if (!allergens.length) dispatch(update_allergens(['', '', '', '', '']));
@@ -40,7 +41,7 @@ export const restrictAllergenInputs = () => {
     // and to handle any inputs less than 5 allergens by filling in the rest of the array with empty strings
     // to satisfy the DB query requirements
     else {
-      allergens = allergens.replaceAll(' ','').toUpperCase().split(',').slice(0,5);
+      allergens = allergens.replaceAll(', ',',').toUpperCase().split(',').slice(0,5);
       while (allergens.length < 5) {
         allergens.push('');
       }
@@ -59,7 +60,7 @@ export const fetchProductsByAllergen = () => {
     // retrieve our allergens property from our state which at this point,
     // should be an proper array after going through the 'restrictAllergenInputs' thunk creator
     const allergens = getState().products.allergens;
-    console.log(allergens);
+
     // then use promise-chaining on a fetch API to resolve the response from the server, 
     // and to update the 'results' property in our state
     fetch('/api/filterOutAllergens', {

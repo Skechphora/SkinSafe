@@ -199,9 +199,9 @@ body {
 }
 
 #product-container {
-  display: grid;
-  grid-template-columns: 100%;
-  gap: 10px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
   width: 80%;
   margin: 0.5rem;
   margin-right: 1.5rem;
@@ -210,22 +210,26 @@ body {
 // Styling for Product cards
 .product-card {
   display: flex;
+  column-gap: 1rem;
   border: solid $primary_text;
   border-radius: 0.5rem;
-  padding: 1rem 1.25rem;
+  padding: 1rem;
   background-color: $secondary_background;
   box-shadow: 0 3px 3px 1px rgba(0, 0, 0, 0.24);
 
   .product-description {
-    flex-basis: 20rem;
+    display: flex;
+    flex-direction: column;
+    flex-basis: 20%;
 
     img {
       border-radius: 1rem;
       height: 7.5rem;
       width: 7.5rem;
+      align-self: center;
     }
   
-    h1 {
+    h2 {
       font-size: 1.5rem;
       color: $primary_text;
       margin: 0;
@@ -251,20 +255,25 @@ body {
       }
     }
   
-    h2 {
+    h3 {
       text-align: left;
       font-size: 1.25rem;
       color: $secondary_text;
       margin: 0;
-  
-      span {
-        font-size: 1rem;
-      }
+    }
+
+    p {
+      font-size: 1rem;
+      margin-bottom: 0;
     }
   }
 
   .product-ingredients {
-    flex-basis: 40rem;
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.5rem;
+    flex-basis: 80%;
+    word-break: break-all;
 
     p {
       color: $tertiary_text;
