@@ -7,7 +7,7 @@ module.exports = {
   fetchProductList: async (req, res, next) => {
     try {
       const url =
-        'https://sephora.p.rapidapi.com/products/list?categoryId=cat150006&pageSize=20&currentPage=1';
+        'https://sephora.p.rapidapi.com/products/list?categoryId=cat150006&pageSize=6&currentPage=7&sortBy=P_BEST_SELLING%3A1';
       const options = {
         method: 'GET',
         headers: {
@@ -81,7 +81,7 @@ module.exports = {
       const newProduct = {
         ...product,
         category_id: category,
-        ingredients: ingredientDesc,
+        ingredients: ingredientDesc || 'none',
       };
 
       res.locals.DETAILS.push(newProduct);
