@@ -10,7 +10,7 @@ const rootContainer = document.getElementById('root');
 const root = createRoot(rootContainer);
 
 // Refactored index.js to just render the 'App' component, keeping the <Provider> wrapper to
-// allow access to the store for all child components
+// allow access to the store for all child components. Routing is done inside the 'App' component.
 root.render(
   <Provider store={store}>
     <App />

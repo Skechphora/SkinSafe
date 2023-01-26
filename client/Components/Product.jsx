@@ -1,187 +1,31 @@
 // This component lives inside the Results Display component. A Product component will be rendered for each returned result
-
 import React from "react";
-import { useSelector } from 'react-redux';
 
 const Product = (props) => {
-  // deconstructs the id off the props object (assigned in ResultsDisplay)
-  const { id } = props;
-
-  // grabs the results of the DB query from state (set in products.slice)
-  const productList = useSelector((state) => state.products.results);
-
-  // grabs a single product with the relevant product ID
-  const product = productList.find((el) => el.id === id);
+  // Utilizing prop-drilling here instead of leveraging 'useSelector' to grab stuff from state
 
   // deconstructs the properties to display from the product object
-  // const { brandName, productName, productImage, ingredients } = product;
+  const { imgSrc, productName, category, brandName, urlLink } = props;
+  let { ingredients } = props;
+  const fullLink = `https://www.sephora.com${urlLink}`;
+
+  // sanitizing the ingredients information coming in from each product object
+  // so that it is more readable on the front-end
+  ingredients = ingredients.replaceAll(/[\{\}"]/g,'').toLowerCase();
   
   // returns a product card with each relevant piece of information
   return (
-    // <div className="product">
-    //   <img src= {productImage}></img>
-    //   <h1>{productName}</h1>
-    //   <h2>{brandName}</h2>
-    //   <p> Ingredients: {ingredients}</p>
-    // </div>
-    <>
-      <div className="product">
-        <img src=""></img>
-        <h1>FENTY CONCEALER</h1>
-        <h2>FENTY</h2>
-        <p> Ingredients: SO MANY DAMN INGREDIENTS</p>
+    <div className="product-card">
+      <div className="product-description">
+        <img src={imgSrc}></img>
+        <h1><a href={fullLink} target="_blank">{productName}</a></h1>
+        <h2><span>{category} by</span> {brandName}</h2>
       </div>
-      <div className="product">
-        <img src=""></img>
-        <h1>FENTY CONCEALER</h1>
-        <h2>FENTY</h2>
-        <p> Ingredients: SO MANY DAMN INGREDIENTS</p>
+      <div className="product-ingredients">
+        <p> Ingredients: </p>
+        <p>{ingredients}</p>
       </div>
-      <div className="product">
-        <img src=""></img>
-        <h1>FENTY CONCEALER</h1>
-        <h2>FENTY</h2>
-        <p> Ingredients: SO MANY DAMN INGREDIENTS</p>
-      </div>
-      <div className="product">
-        <img src=""></img>
-        <h1>FENTY CONCEALER</h1>
-        <h2>FENTY</h2>
-        <p> Ingredients: SO MANY DAMN INGREDIENTS</p>
-      </div>
-      <div className="product">
-        <img src=""></img>
-        <h1>FENTY CONCEALER</h1>
-        <h2>FENTY</h2>
-        <p> Ingredients: SO MANY DAMN INGREDIENTS</p>
-      </div>
-      <div className="product">
-        <img src=""></img>
-        <h1>FENTY CONCEALER</h1>
-        <h2>FENTY</h2>
-        <p> Ingredients: SO MANY DAMN INGREDIENTS</p>
-      </div>
-      <div className="product">
-        <img src=""></img>
-        <h1>FENTY CONCEALER</h1>
-        <h2>FENTY</h2>
-        <p> Ingredients: SO MANY DAMN INGREDIENTS</p>
-      </div>
-      <div className="product">
-        <img src=""></img>
-        <h1>FENTY CONCEALER</h1>
-        <h2>FENTY</h2>
-        <p> Ingredients: SO MANY DAMN INGREDIENTS</p>
-      </div>
-      <div className="product">
-        <img src=""></img>
-        <h1>FENTY CONCEALER</h1>
-        <h2>FENTY</h2>
-        <p> Ingredients: SO MANY DAMN INGREDIENTS</p>
-      </div>
-      <div className="product">
-        <img src=""></img>
-        <h1>FENTY CONCEALER</h1>
-        <h2>FENTY</h2>
-        <p> Ingredients: SO MANY DAMN INGREDIENTS</p>
-      </div>
-      <div className="product">
-        <img src=""></img>
-        <h1>FENTY CONCEALER</h1>
-        <h2>FENTY</h2>
-        <p> Ingredients: SO MANY DAMN INGREDIENTS</p>
-      </div>
-      <div className="product">
-        <img src=""></img>
-        <h1>FENTY CONCEALER</h1>
-        <h2>FENTY</h2>
-        <p> Ingredients: SO MANY DAMN INGREDIENTS</p>
-      </div>
-      <div className="product">
-        <img src=""></img>
-        <h1>FENTY CONCEALER</h1>
-        <h2>FENTY</h2>
-        <p> Ingredients: SO MANY DAMN INGREDIENTS</p>
-      </div>
-      <div className="product">
-        <img src=""></img>
-        <h1>FENTY CONCEALER</h1>
-        <h2>FENTY</h2>
-        <p> Ingredients: SO MANY DAMN INGREDIENTS</p>
-      </div>
-      <div className="product">
-        <img src=""></img>
-        <h1>FENTY CONCEALER</h1>
-        <h2>FENTY</h2>
-        <p> Ingredients: SO MANY DAMN INGREDIENTS</p>
-      </div>
-      <div className="product">
-        <img src=""></img>
-        <h1>FENTY CONCEALER</h1>
-        <h2>FENTY</h2>
-        <p> Ingredients: SO MANY DAMN INGREDIENTS</p>
-      </div>
-      <div className="product">
-        <img src=""></img>
-        <h1>FENTY CONCEALER</h1>
-        <h2>FENTY</h2>
-        <p> Ingredients: SO MANY DAMN INGREDIENTS</p>
-      </div>
-      <div className="product">
-        <img src=""></img>
-        <h1>FENTY CONCEALER</h1>
-        <h2>FENTY</h2>
-        <p> Ingredients: SO MANY DAMN INGREDIENTS</p>
-      </div>
-      <div className="product">
-        <img src=""></img>
-        <h1>FENTY CONCEALER</h1>
-        <h2>FENTY</h2>
-        <p> Ingredients: SO MANY DAMN INGREDIENTS</p>
-      </div>
-      <div className="product">
-        <img src=""></img>
-        <h1>FENTY CONCEALER</h1>
-        <h2>FENTY</h2>
-        <p> Ingredients: SO MANY DAMN INGREDIENTS</p>
-      </div>
-      <div className="product">
-        <img src=""></img>
-        <h1>FENTY CONCEALER</h1>
-        <h2>FENTY</h2>
-        <p> Ingredients: SO MANY DAMN INGREDIENTS</p>
-      </div>
-      <div className="product">
-        <img src=""></img>
-        <h1>FENTY CONCEALER</h1>
-        <h2>FENTY</h2>
-        <p> Ingredients: SO MANY DAMN INGREDIENTS</p>
-      </div>
-      <div className="product">
-        <img src=""></img>
-        <h1>FENTY CONCEALER</h1>
-        <h2>FENTY</h2>
-        <p> Ingredients: SO MANY DAMN INGREDIENTS</p>
-      </div>
-      <div className="product">
-        <img src=""></img>
-        <h1>FENTY CONCEALER</h1>
-        <h2>FENTY</h2>
-        <p> Ingredients: SO MANY DAMN INGREDIENTS</p>
-      </div>
-      <div className="product">
-        <img src=""></img>
-        <h1>FENTY CONCEALER</h1>
-        <h2>FENTY</h2>
-        <p> Ingredients: SO MANY DAMN INGREDIENTS</p>
-      </div>
-      <div className="product">
-        <img src=""></img>
-        <h1>FENTY CONCEALER</h1>
-        <h2>FENTY</h2>
-        <p> Ingredients: SO MANY DAMN INGREDIENTS</p>
-      </div>
-    </>
+    </div>
     );
 };
 export default Product;

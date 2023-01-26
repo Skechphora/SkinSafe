@@ -8,7 +8,7 @@ export const productsSlice = createSlice({
   // this slice of state will be accessible via two getState().products:
   name: 'products',
   initialState: {
-    allergens: [],  // 1. getState().products.allergens
+    allergens: '',  // 1. getState().products.allergens
     results: [],    // 2. getState().products.results
   },
   // RTK allows us to write "mutating" logic in reducers; it doesn't actually mutate the state because it uses a library that detects changes to a 
@@ -25,35 +25,6 @@ export const productsSlice = createSlice({
   },
 });
 
-/* ========== Redux thunk middleware syntax =========== */
-// the outside custom "thunk creator" function, dispatch this in a React component
-export const fetchProductsByAllergen = () => {
-  // the inside "thunk function"
-  // note on useSelector vs getState: https://www.reddit.com/r/react/comments/jdbzme/what_is_the_difference_between_getstate_and/
-  return (dispatch, getState) => {
-    // split the string of allergens separated by comma into an array of allergens
-    const allergens = getState().products.allergens;
-
-    // do some error-handling here, if there were no allergens entered then let's just
-    // update the results property in our store to stay as an empty array
-    if (!allergens.length) dispatch(update_results([]))
-    // otherwise use promise-chaining to resolve the response from the server, 
-    // and to update the 'Results' property in our state
-    else {
-      fetch('/api', {
-        method: "POST",
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        // send a JSON object
-        body: JSON.stringify({ allergens })
-      })
-        .then(response => response.json())
-        .then(response => dispatch(update_results(response)))
-        .catch(err => console.log(err));
-    }
-  }
-}
 
 // Dispatching 'restrictAllergenInputs' within the 'SearchBar' component to limit the number of
 // allergen inputs to only 5 when the submit button is pressed.
@@ -62,14 +33,48 @@ export const fetchProductsByAllergen = () => {
 export const restrictAllergenInputs = () => {
   return (dispatch, getState) => {
     let allergens = getState().products.allergens;
-
-    if (!allergens.length) dispatch(update_allergens([]))
+    // Check to see if the user had not entered any allergens
+    // if so, just update our 'allergens' property in our state to be an empty string
+    if (!allergens.length) dispatch(update_allergens(['', '', '', '', '']));
+    // otherwise, we've some input, and we'll need to turn it into an array by splitting the commas,
+    // and to handle any inputs less than 5 allergens by filling in the rest of the array with empty strings
+    // to satisfy the DB query requirements
     else {
-      allergens = allergens.replaceAll(' ','').split(',').filter(ingredient => ingredient !== '').slice(0,5);
+      allergens = allergens.replaceAll(' ','').toUpperCase().split(',').slice(0,5);
+      while (allergens.length < 5) {
+        allergens.push('');
+      }
       dispatch(update_allergens(allergens));
     }
   }
 }
+
+
+/* ========== Redux thunk middleware syntax =========== */
+// the outside custom "thunk creator" function, dispatch this in a React component
+export const fetchProductsByAllergen = () => {
+  // the inside "thunk function"
+  // note on useSelector vs getState: https://www.reddit.com/r/react/comments/jdbzme/what_is_the_difference_between_getstate_and/
+  return (dispatch, getState) => {
+    // retrieve our allergens property from our state which at this point,
+    // should be an proper array after going through the 'restrictAllergenInputs' thunk creator
+    const allergens = getState().products.allergens;
+    console.log(allergens);
+    // then use promise-chaining on a fetch API to resolve the response from the server, 
+    // and to update the 'results' property in our state
+    fetch('/api/filterOutAllergens', {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      // send a JSON object with the key-value pair of 'allergens'
+      body: JSON.stringify({ allergens })
+    })
+      .then(response => response.json())
+      .then(response => dispatch(update_results(response)))
+      .catch(err => console.log(err));
+    }
+  }
 
 /** Redux Toolkit createAsyncThunk API syntax */
 export const { update_allergens, update_results } = productsSlice.actions;
