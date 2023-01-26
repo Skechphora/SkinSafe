@@ -20,7 +20,7 @@ const Product = (props) => {
       <div className="product-description">
         <img src={imgSrc}></img>
         <h2><a href={fullLink} target="_blank">{productName}</a></h2>
-        <p className="category">{category} by:</p>
+        <p className="category">'{category}' by:</p>
         <h3>{brandName}</h3>
       </div>
       <div className="product-ingredients">

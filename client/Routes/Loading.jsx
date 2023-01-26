@@ -14,7 +14,7 @@ const LoadingPage = () => {
   return (
     <div className="loading-page">
       <h2>Hang tight...</h2>
-      <img src="https://i.kym-cdn.com/photos/images/original/000/591/928/94f.png"/>
+      <img src="https://i.kym-cdn.com/photos/images/original/000/591/928/94f.png" alt="skin_feels_so_good"/>
     </div>
   );
 };
