@@ -22,7 +22,7 @@ const Product = (props) => {
 
   // sanitizing the ingredients information coming in from each product object
   // so that it is more readable on the front-end
-  ingredients = ingredients.replaceAll('{','').replace
+  ingredients = ingredients.replaceAll(/[\{\}]/g,'');
   console.log(ingredients);
   
   // returns a product card with each relevant piece of information
