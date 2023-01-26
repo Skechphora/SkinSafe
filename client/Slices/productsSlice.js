@@ -30,21 +30,26 @@ export const productsSlice = createSlice({
 export const fetchProductsByAllergen = () => {
   // the inside "thunk function"
   // note on useSelector vs getState: https://www.reddit.com/r/react/comments/jdbzme/what_is_the_difference_between_getstate_and/
-  return async (dispatch, getState) => {
+  return (dispatch, getState) => {
     // split the string of allergens separated by comma into an array of allergens
     const allergens = getState().products.allergens;
 
-    // wait for fetch promise to resolve before asigning to response 
-    const response = await fetch('/api', {
-      method: "POST",
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ allergens }) // send a JSON object
-    });
-
-    // wait for response.json() promise to resolve before invoking dispatch 
-    dispatch(update_results(await response.json()));
+    if (!allergens.length) dispatch(update_results([]))
+    else {
+      // use promise-chaining to resolve the response from the server, and to update the 'Results' property
+      // in our state with the response
+      fetch('/api', {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        // send a JSON object
+        body: JSON.stringify({ allergens })
+      })
+        .then(response => response.json())
+        .then(response => dispatch(update_results(response)))
+        .catch(err => console.log(err));
+    }
   }
 }
 
@@ -55,7 +60,6 @@ export const fetchProductsByAllergen = () => {
 export const restrictAllergenInputs = () => {
   return (dispatch, getState) => {
     let allergens = getState().products.allergens;
-    console.log(allergens);
 
     if (!allergens.length) dispatch(update_allergens([]))
     else {

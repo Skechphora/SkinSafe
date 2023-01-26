@@ -14,6 +14,7 @@ body {
   width: 100vw;
   overflow-x: hidden;
   margin: 0;
+  font-family: Lato;
 }
 
 // here is general styling for Search and Loading Pages
@@ -22,6 +23,7 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  flex-wrap: wrap;
   height: 100vh;
   font-family: Lato;
 
@@ -60,7 +62,6 @@ body {
     rgba(255, 165, 0, 0)
   );
   background-size: cover;
-  font-family: Lato;
   padding: 0.5rem;
 
     img {
@@ -93,7 +94,7 @@ body {
   background-color: white;
   border: none;
   border-bottom: 2px solid rgba(0, 0, 255, 0.499);
-  width: 20rem;
+  width: 35rem;
   text-align: center;
   padding: 0.5rem;
   border-radius: 0.5rem;

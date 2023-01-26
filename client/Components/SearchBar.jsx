@@ -8,6 +8,12 @@ const SearchBar = () => {
   // dispatch actions using RTK
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const clickHandler = async () => {
+    await dispatch(restrictAllergenInputs());
+    await dispatch(fetchProductsByAllergen()); 
+    navigate('/loading');
+  }
   
   return (
     <div id="search-group">
@@ -19,7 +25,7 @@ const SearchBar = () => {
         onChange={e => dispatch(update_allergens(e.target.value))}
       />
       <h5>Please enter in a maximum of 5 allergens, separated by commas</h5>
-      <h6>Ex: Latex, Benzyl alcohol, Magnesium Sulfate, Aluminum Hydroxide, Silica</h6>
+      <h6>Ex: Latex, Benzyl Alcohol, Magnesium Sulfate, Aluminum Hydroxide, Silica</h6>
       {/* associated submit button */}
       <div>
         <button 
@@ -29,11 +35,7 @@ const SearchBar = () => {
           // then, we'll dispatch the 'fetchProductsByAllergen' 'thunk creator' to send the list of allergens to our
           // server, and wait for a list of product responses back
           // finally, navigate to the 'loading' page
-          onClick={() => { 
-            dispatch(restrictAllergenInputs());
-            dispatch(fetchProductsByAllergen()); 
-            navigate('/loading');
-          }}
+          onClick={() => clickHandler()}
         >Search
         </button>
       </div>
