@@ -1,7 +1,12 @@
 // these are sass color variables
-$primary_text: black;
-$secondary_text: rgb(92, 92, 92);
-$tertiary_text: darkgray;
+$primary_text: #1B1212;
+$secondary_text: #2b2b2b;
+$tertiary_text: #5b6064;
+$button_color: #4285F4;
+$primary_background: #9fb4ed;
+$secondary_background: #edebf4;
+$tertiary_background: #f4e4e4;
+$allergen: #d45a5a;
 
 body {
   background-image: linear-gradient(
@@ -16,6 +21,12 @@ body {
   overflow-x: hidden;
   margin: 0;
   font-family: Lato;
+  background-image: linear-gradient(
+    to right,
+    $primary_background 35%,
+    $secondary_background,
+    $tertiary_background
+  );
 }
 
 // here is general styling for Search and Loading Pages
@@ -27,16 +38,24 @@ body {
   flex-wrap: wrap;
   height: 100vh;
   font-family: Lato;
+  background-image: linear-gradient(
+    to top,
+    $primary_background,
+    $secondary_background,
+    $tertiary_background
+  );
 
   h1 {
     font-size: 5rem;
     color: $primary_text;
     margin: 0;
+    text-align: center;
   }
 
   h2 {
-    font-size: 1.8rem;
-    color: $secondary_text;
+    font-size: 2rem;
+    color: $tertiary_text;
+    text-align: center;
   }
 }
 
@@ -47,31 +66,22 @@ body {
   flex-direction: column;
   height: 100vh;
   font-family: Lato;
+  background-image: linear-gradient(
+    to top,
+    $primary_background,
+    $secondary_background,
+    $tertiary_background
+  );
 }
 
-// slightly different tyling for the Results Page
+// slightly different styling for the Results Page
 .results-page {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
   width: 100%;
-  background-image: linear-gradient(
-    to top,
-    rgb(255, 213, 135) 65%,
-    rgba(255, 165, 0, 0.3),
-    rgba(255, 165, 0, 0)
-  );
-  background-size: cover;
   padding: 0.5rem;
-
-    img {
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
-      margin-bottom: 16px;
-      width: 50%;
-    }
 }
 
 // Specific styling for Search Page and its elements
@@ -81,11 +91,13 @@ body {
   text-align: center;
 
   h5 {
+    font-size: 1rem;
     margin-bottom: 0.5rem;
     color: $secondary_text;
   }
 
   h6 {
+    font-size: 1rem;
     margin: 0;
     color: $secondary_text;
   }
@@ -94,67 +106,75 @@ body {
 #search-bar {
   background-color: white;
   border: none;
-  border-bottom: 2px solid rgba(0, 0, 255, 0.499);
+  border-bottom: 2px solid $primary_background;
   width: 35rem;
+  font-size: 1rem;
   text-align: center;
   padding: 0.5rem;
   border-radius: 0.5rem;
+  color: $allergen;
 }
 
 #search-button {
-  background-color: rgb(72, 72, 255);
+  background-color: $primary_background;
   border: 1px solid transparent;
-  border-radius: 0.5rem;
+  border-radius: 1rem;
   color: white;
   padding: 0.5rem 5rem;
-  margin: 20px;
+  margin: 1.5rem;
   display: inline-block;
-  font-size: 16px;
+  font-size: 1.2rem;
   cursor: pointer;
+  transition-duration: 0.2s;
 }
 
 #return-to-home-button {
-  background-color: rgb(72, 72, 255);
+  background-color: $primary_background;
   border: 1px solid transparent;
   border-radius: 5px;
   color: white;
   font-size: 1rem;
   padding: 0.5rem 0rem;
   cursor: pointer;
+  transition-duration: 0.2s;
 }
 
 #search-button:hover,
 #return-to-home-button:hover {
-  box-shadow: 0 3px 3px 1px rgba(0, 0, 0, 0.24);
-  border: 1px solid rgb(30, 30, 30);
+  box-shadow: 0 1px 1px 2px rgba(0, 0, 0, 0.2);
+  border: 1px solid $primary_background;
+  background-color: $tertiary_background;
+  color: $tertiary_text;
 }
 
 // Specific styling for Components on the Results Page
-#searched {
+#searched-container {
+  width: 20%;
   align-self: flex-start;
-  background-color: rgba(240, 240, 240, 0.75);
-  border: solid black;
+  position: sticky;
+  top: 0;
+}
+
+#searched {
+  display: flex;
+  flex-direction: column;
+  background-color: $secondary_background;
   border-radius: 0.5rem;
   padding-bottom: 1rem;
   padding-right: 1.3rem;
   padding-left: 1rem;
-  margin: 1.3rem;
   margin-left: 0.5rem;
-  margin-top: 0.5rem;
-  width: 15%;
-  position: sticky;
-  top: 0;
-  display: flex;
-  flex-direction: column;
+  margin-top: 2rem;
+  box-shadow: 0 3px 3px 1px rgba(0, 0, 0, 0.24);
 }
 
 #searched-header {
   h4 {
-    color: rgb(194, 93, 93);
-    border-bottom: 3px double black;
+    color: $allergen;
+    border-bottom: 3px double $primary_text;
     margin-bottom: 1rem;
     padding-bottom: 1rem;
-    font-size: 1.43rem;
+    font-size: 1.3rem;
   }
 }
 
@@ -167,12 +187,13 @@ body {
   height: 100%;
   padding: 1rem;
   padding-bottom: 1.5rem;
-  border: solid rgb(165, 165, 165);
+  border: solid $primary_background;
   border-radius: 0.5rem;
   margin-bottom: 1rem;
 
   p {
     margin: 0;
+    color: $allergen;
   }
 }
 
@@ -185,30 +206,101 @@ body {
 }
 
 #product-container {
-  padding: 1rem;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
+  grid-template-columns: 100%;
   gap: 10px;
+  width: 80%;
+  margin: 0.5rem;
+  margin-right: 1.5rem;
 }
 
 // Styling for Product cards
-.product {
-  border: solid black;
+.product-card {
+  display: flex;
+  // row-gap: 1rem;
+  border: solid $primary_text;
   border-radius: 0.5rem;
-  padding: 1rem 2rem;
-  background-color: rgba(240, 240, 240, 0.450);
+  padding: 1rem 1.25rem;
+  background-color: $secondary_background;
+  box-shadow: 0 3px 3px 1px rgba(0, 0, 0, 0.24);
+
+  img {
+    border-radius: 1rem;
+    height: 7.5rem;
+    width: 7.5rem;
+  }
 
   h1 {
     font-size: 1.5rem;
+    color: $primary_text;
+    margin: 0;
+  }
+
+  a {
+    text-decoration: none;
+
+    &:link {
+      color: $primary_text
+    }
+
+    &:visited {
+      color: $primary_text
+    }
+
+    &:hover {
+      text-decoration: underline;
+    }
+
+    &:active {
+      color: $primary_background
+    }
   }
 
   h2 {
     text-align: left;
-    font-size: 1.2rem;
+    font-size: 1.25rem;
+    color: $secondary_text;
+    margin: 0;
+
+    span {
+      font-size: 1rem;
+    }
   }
 
   p {
-    color: $secondary_text;
+    color: $tertiary_text;
+    font-size: 1rem;
     margin: 0;
+    text-transform: capitalize;
+  }
+}
+
+// Media Queries to ensure a responsive web-page
+@media screen and (max-width: 525px) {
+  #search-bar {
+    width: 28rem;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .results-page {
+    display: flex;
+    flex-direction: column;
+  }
+
+  #searched-container {
+    width: 70%;
+    align-self: center;
+    margin-right: 1.5rem;
+  }
+
+  #product-container {
+    width: 95%
+  }
+}
+
+@media screen and (max-width: 600px) {
+  #searched-container {
+    width: 80%;
   }
 }
