@@ -15,7 +15,7 @@ const ResultsPage_Container = () => {
     products.push(
       <Product 
         key={productList[i]._id}
-        brandId={productList[i].brand_id} 
+        brandName={productList[i].brand_name} 
         imgSrc={productList[i].hero_image}
         productName={productList[i].product_name}  
         ingredients={productList[i].ingredients}
