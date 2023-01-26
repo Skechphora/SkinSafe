@@ -19,11 +19,15 @@ app.get('/api/getAllProducts', dbControllers.getAllProducts, (req,res)=>{
 })
 app.get('/api/getAllIngredients', dbControllers.getAllProducts, dbControllers.getAllIngredients, (req,res)=>{
   console.log('endpoint reached for GET request to /api/getAllIngredients ')
-  res.status(200).json(res.locals.productsWithIngredients)
+  res.status(200).json(res.locals.getAllProducts)
 })
-app.post('/api', dbControllers.getProductExclusive, (req, res) => {
+app.post('/api/getBadProducts', dbControllers.getBadProducts, (req,res)=>{
+  res.status(200).json(res.locals.productsWithBadIngredients)
+})
+
+app.post('/api', dbControllers.getBadProducts, dbControllers.getAllProducts, dbControllers.getAllIngredients, dbControllers.filter, (req, res) => {
    console.log('endpoint reached for POST request to /api')
-  res.status(200).json(res.locals.getProduct);
+  res.status(200).json(res.locals.filteredProducts);
 });
 
 //404 not find page, can be put an html page there also, unknown route

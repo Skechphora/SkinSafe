@@ -12,9 +12,9 @@ const product_query = 'SELECT * from sub_product'
 pgSql.query(product_query)
 // .then((data)=>data.json())
 .then((data) => {
-  console.log('select all products ' , data.rows);
+  //console.log('select all products ' , data.rows);
   res.locals.getAllProducts = data.rows;
-  next();
+  return next();
 })
 .catch((error) => {
     next({
@@ -27,26 +27,34 @@ pgSql.query(product_query)
 }
 
 dbControllers.getAllIngredients = (req, res, next) =>{
+  console.log('within dbControllers.getAllIngredients MWF',res.locals.getAllProducts)
 // TODO: create object with 1 property for each product
 let returnObj = {};
+let allProducts = res.locals.getAllProducts;
+
 //step 1: get all products
-res.locals.getAllProducts.forEach((product) => {
+allProducts.forEach((product) => {
   returnObj[product['sub_product_id']] = [];
-})
-console.log(returnObj);
+  })
 //step 2: make sql query to get all ingredients for each product
 const ingredient_query = 'SELECT * FROM sub_product LEFT JOIN product_ingredient ON sub_product.sub_product_id = product_ingredient.sub_product_id LEFT JOIN ingredient_list ON product_ingredient.ingredient_id = ingredient_list._id'
-
 pgSql.query(ingredient_query)
 .then((data) => {
-  console.log("query executing?")
-  console.log(data.rows)
+  console.log("query executing? in get all ingredients")
+  //console.log(data.rows)
 //step 3: populate the ingredient array in returnObj by matching the product id's with the keys of the returnObj
 data.rows.forEach((element) => {
+ 
   returnObj[element['sub_product_id']].push(element.ingredient);
 })
-console.log(returnObj)
 res.locals.productsWithIngredients = returnObj
+console.log('we have made it here :/')
+allProducts.forEach((product) => {
+  console.log('within allProducts.forEach, product is :', product, 'return obj: ', returnObj)
+  product.ingredients = returnObj[product['sub_product_id']];
+  
+  })
+   console.log('ALL PRODUCTS WITH INGREDIENTS', allProducts)
     return next();
   })
   .catch((error) => {
@@ -59,12 +67,45 @@ res.locals.productsWithIngredients = returnObj
     });
 }
 
-dbControllers.getProductExclusive = (req, res, next) => {
+dbControllers.getBadProducts = (req, res, next) => {
   // Get all products containing undesired ingredients
-  
+  // store values from req.bod in an array
+  // make query to ingredient list to return all products containing these ingredients
+   const allergens = req.body.allergens;
+   console.log('passing in')
+  console.log(allergens)
+  const query = "SELECT * FROM sub_product LEFT JOIN product_ingredient ON sub_product.sub_product_id = product_ingredient.sub_product_id LEFT JOIN ingredient_list ON product_ingredient.ingredient_id = ingredient_list._id WHERE ingredient_list.ingredient IN ($1,$2,$3,$4,$5)"
+  // WHERE ingredient_list.ingredient IN ALLERGENS($1,$2,$3,$4,$5)
+  pgSql.query(query, allergens)
+  .then((data) => {
+    console.log("query executing in get Bad products?")
+    console.log(data.rows)
+    res.locals.badProducts = data.rows
   return next();
+})
 }
 
+dbControllers.filter = (req, res, next) => {
+// Requires list of bad products and list of all products
+console.log('inside dbcontrollers.filter mwf')
+const allProducts = res.locals.getAllProducts;
+const badProducts = res.locals.badProducts;
+// console.log('badProducts =', res.locals.badProducts)
+// console.log('allProducts = ', res.locals.getAllProducts)
+const goodProducts = []
+for (const ele of allProducts) {
+  let isBad = false;
+  //for each element in bad products, check the sub product id
+  //if subproduct id of product ele is found in a badproduct ele, continue
+    for (const badEle of badProducts){
+      if (badEle['sub_product_id'] == ele['sub_product_id']) isBad = true;
+    }
+    if (!isBad) goodProducts.push(ele)
+  }
+  console.log('goodProducts =', goodProducts)
+  res.locals.filteredProducts = goodProducts
+  return next();
+}
 
 //TODO:
 //Save query response in res.locals.getProduct. Also maybe format it.
