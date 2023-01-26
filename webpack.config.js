@@ -1,6 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-require('dotenv').config({ path: './.env' });
+// require('dotenv').config({ path: './.env' });
 
 module.exports = {
   entry: './client/index.js',
@@ -25,13 +25,16 @@ module.exports = {
       // Added back /api here to ensure that only requests to /api are sent to back end.
       // All front-end requests must be handled by react routers
       '/transfer': 'http://localhost:3000',
+      '/api': 'http://localhost:3000',
     },
   },
   module: {
     rules: [
       {
-        test: /\.jsx?/, //what files needs to be compiled by checking the file types
-        exclude: /node_modules/,
+        // Testing for any .js/.jsx files to be transpiled by Babel preset-react, and to transpile down
+        // any ES6+ code down to version that can be compatible with any browser
+        test: /\.jsx?/,
+        exclude: /(node_modules)/,
         use: {
           loader: 'babel-loader',
           options: {
@@ -40,22 +43,23 @@ module.exports = {
         },
       },
       {
+        // Testing for any .css/.scss files so that webpack can fulfil the style import in 'index.js'
         test: /\.s[ac]ss$/i,
+        exclude: /(node_modules)/,
         use: ['style-loader', 'css-loader', 'sass-loader'],
       },
     ],
   },
   plugins: [
+    // Generates an HTML file based on the template we pass in to serve our webpack files
+    // which in this case, the template is our own 'index.html' file
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: './client/index.html',
     }),
   ],
   resolve: {
-    extensions: [
-      // Enable importing .js and .jsx files without specifying their extension
-      '.js',
-      '.jsx',
-    ],
+    // Enable importing .js and .jsx files without specifying their extension
+    extensions: ['.js', '.jsx'],
   },
 };
