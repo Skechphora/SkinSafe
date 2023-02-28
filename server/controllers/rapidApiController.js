@@ -2,12 +2,12 @@ const fetch = require('node-fetch');
 require('dotenv').config({ path: './.env' });
 
 module.exports = {
-  getProductList: async (req, res, next) => {
-    // console.log(req.body)
-    //needs category id
+  // Product list API call
+
+  fetchProductList: async (req, res, next) => {
     try {
       const url =
-        'https://sephora.p.rapidapi.com/products/list?categoryId=cat1230034&pageSize=30&currentPage=1';
+        'https://sephora.p.rapidapi.com/products/list?categoryId=cat150006&pageSize=6&currentPage=7&sortBy=P_BEST_SELLING%3A1';
       const options = {
         method: 'GET',
         headers: {
@@ -15,35 +15,29 @@ module.exports = {
           'X-RapidAPI-Host': 'sephora.p.rapidapi.com',
         },
       };
+
       const response = await fetch(url, options);
-      res.locals.raw_product_list = await response.json();
-      // res.locals.raw_product_list = req.body
-      const { categoryId, products } = res.locals.raw_product_list;
-      const category = {
-        category_id: categoryId,
-        product_list: [],
-      };
-      // console.log(category, products)
+      const data = await response.json();
+      const { products } = data;
+
+      const PRODUCTS = [];
+
       for (let product of products) {
-        const {
-          productId,
-          brandName,
-          displayName,
-          heroImage,
-          rating,
-          reviews,
-        } = product;
-        category.product_list.push({
-          product_id: productId,
-          brand_name: brandName,
-          display_name: displayName,
-          hero_image: heroImage,
-          rating: rating,
-          reviews: reviews,
-        });
+        const formatedProduct = {
+          product_id: product.productId,
+          product_name: product.displayName,
+          brand_id: product.brandName,
+          category_id: 0,
+          hero_image: product.heroImage,
+          target_url: product.targetUrl,
+          rating: product.rating,
+          review: product.reviews,
+        };
+
+        PRODUCTS.push(formatedProduct);
       }
-      // console.log(category)
-      res.locals.CATEGORY = await category;
+
+      res.locals.PRODUCTS = await PRODUCTS;
       return next();
     } catch (err) {
       const error = {
@@ -57,8 +51,10 @@ module.exports = {
     }
   },
 
-  getProductDetail: async (req, res, next) => {
-    res.locals.CATEGORY = [];
+  // Products'details API call
+
+  fetchProductDetail: async (req, res, next) => {
+    res.locals.DETAILS = [];
 
     const options = {
       method: 'GET',
@@ -68,63 +64,30 @@ module.exports = {
       },
     };
 
-    for (let i = 0; i < res.locals.PRODUCT_LIST.length; i++) {
-      // for (let product of res.locals.PRODUCT_LIST) {
-      console.log('ran getProductDetail');
-      const product = res.locals.PRODUCT_LIST[i];
-      const {
-        product_id,
-        brand_name,
-        display_name,
-        hero_image,
-        rating,
-        reviews,
-      } = product;
+    for (const [i, product] of res.locals.PRODUCTS.entries()) {
+      const { product_id } = product;
 
       const url = `https://sephora.p.rapidapi.com/products/detail?productId=${product_id}&preferedSku=2210607`;
-
       const response = await fetch(url, options);
-      // console.log(response)
       const productDetail = await response.json();
-      // console.log(productDetail)
 
-      const firstName = productDetail.currentSku.displayName;
+      // Two data that I want
+      // Want to add this category to my product
+      //
+      const { ingredientDesc } = productDetail.currentSku;
+      const category = productDetail.parentCategory.displayName;
 
       // create new list of subproducts
       const newProduct = {
-        product_id: product_id,
-        brand_name: brand_name,
-        display_name: display_name,
-        hero_image: hero_image,
-        rating: rating,
-        reviews: reviews,
-        sub_product_list: [],
+        ...product,
+        category_id: category,
+        ingredients: ingredientDesc || 'none',
       };
 
-      // first sub_product aka currentSku is pushed into the subproduct array
-
-      newProduct.sub_product_list.push({
-        display_name: brand_name + ' ' + display_name,
-        variant: firstName,
-        ingredient: productDetail.currentSku.ingredientDesc,
-      });
-
-      console.log(productDetail.regularChildSkus);
-      if (productDetail.regularChildSkus)
-        for (let Sku of productDetail.regularChildSkus) {
-          const { displayName, ingredientDesc } = Sku;
-
-          newProduct.sub_product_list.push({
-            display_name: brand_name + ' ' + display_name,
-            variant: displayName,
-            ingredient: ingredientDesc,
-          });
-        }
-      res.locals.CATEGORY.push(newProduct);
+      res.locals.DETAILS.push(newProduct);
     }
-    // console.log(res.locals.CATEGORY)
-    // res.locals.PRODUCTS = newProduct
-    // console.log(res.locals.PRODUCTS)
+
+    // console.log(res.locals.DETAILS);
     return next();
   },
 };
