@@ -7,7 +7,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, './build'),
     filename: 'bundle.js',
-    publicPath: '/'
+    publicPath: '/',
   },
   mode: 'development',
   devServer: {
@@ -19,13 +19,13 @@ module.exports = {
     historyApiFallback: true,
     static: {
       directory: path.join(__dirname, './build'),
-      publicPath: '/'
+      publicPath: '/',
     },
     proxy: {
       // Added back /api here to ensure that only requests to /api are sent to back end.
       // All front-end requests must be handled by react routers
       '/transfer': 'http://localhost:3000',
-      '/api': 'http://localhost:3000'
+      '/api': 'http://localhost:3000',
     },
   },
   module: {
@@ -38,10 +38,7 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: [
-              '@babel/preset-env', 
-              `@babel/preset-react`
-            ],
+            presets: ['@babel/preset-env', `@babel/preset-react`],
           },
         },
       },
@@ -49,11 +46,21 @@ module.exports = {
         // Testing for any .css/.scss files so that webpack can fulfil the style import in 'index.js'
         test: /\.s[ac]ss$/i,
         exclude: /(node_modules)/,
-        use: [
-          'style-loader', 
-          'css-loader', 
-          'sass-loader'
-        ],
+        use: ['style-loader', 'css-loader', 'sass-loader'],
+      },
+      {
+        test: /\.(jpg|png|svg)$/,
+        loader: 'url-loader',
+        options: {
+          limit: 25000,
+        },
+      },
+      {
+        test: /\.(jpg|png|svg)$/,
+        loader: 'file-loader',
+        options: {
+          name: '[path][name].[hash].[ext]',
+        },
       },
     ],
   },
@@ -62,14 +69,11 @@ module.exports = {
     // which in this case, the template is our own 'index.html' file
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: './client/index.html'
+      template: './client/index.html',
     }),
   ],
   resolve: {
     // Enable importing .js and .jsx files without specifying their extension
-    extensions: [
-      '.js',
-      '.jsx'
-    ],
+    extensions: ['.js', '.jsx'],
   },
 };

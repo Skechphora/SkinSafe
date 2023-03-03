@@ -1,6 +1,6 @@
 // This is the top level container of the Search page
-import React from 'react';
-import SearchBar from '../Components/SearchBar';
+import React from "react";
+import SearchBar from "../Components/SearchBar";
 
 const SearchPage = () => {
   return (

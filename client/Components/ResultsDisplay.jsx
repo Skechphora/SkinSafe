@@ -1,7 +1,7 @@
 // This component lives on the results page and displays one Product component for each product
-import React from 'react';
-import Product from './Product';
-import { useSelector } from 'react-redux';
+import React from "react";
+import Product from "./Product";
+import { useSelector } from "react-redux";
 
 const ResultsPage_Container = () => {
   // array from state with all results from relevant DB query
@@ -13,22 +13,19 @@ const ResultsPage_Container = () => {
     // assign props here to prop-drill down just one component
     // reason: easier to prop-drill than leverage 'useSelector' on the 'Product' component to extract info we need per product
     products.push(
-      <Product 
+      <Product
         key={productList[i]._id}
         imgSrc={productList[i].hero_image}
-        productName={productList[i].product_name} 
-        category={productList[i].category} 
-        brandName={productList[i].brand_name} 
+        productName={productList[i].product_name}
+        category={productList[i].category}
+        brandName={productList[i].brand_name}
         ingredients={productList[i].ingredients}
-        urlLink={productList[i].target_url} 
-      />);
+        urlLink={productList[i].target_url}
+      />
+    );
   }
   // render all products
-  return (
-    <div id="product-container">
-      {products}
-    </div>
-  );
+  return <div id="product-container">{products}</div>;
 };
 
 export default ResultsPage_Container;

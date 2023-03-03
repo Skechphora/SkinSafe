@@ -1,4 +1,4 @@
-// these are sass color variables
+// These are SASS color variables
 $primary_text: #1B1212;
 $secondary_text: #2b2b2b;
 $tertiary_text: #5b6064;
@@ -9,6 +9,13 @@ $tertiary_background: #f4e4e4;
 $allergen: #d45a5a;
 
 body {
+  background-image: linear-gradient(
+    to top,
+    rgba(255, 165, 0, 1),
+    rgba(255, 165, 0, 0.3),
+   rgba(255, 165, 0, 0)
+  );
+ 
   height: 100vh;
   width: 100vw;
   overflow-x: hidden;
@@ -22,7 +29,7 @@ body {
   );
 }
 
-// here is general styling for Search and Loading Pages
+// General styling for Search and Loading Pages
 .search-page {
   display: flex;
   justify-content: center;
@@ -65,6 +72,10 @@ body {
     $secondary_background,
     $tertiary_background
   );
+
+  img {
+    opacity: 0.2;
+  }
 }
 
 // slightly different styling for the Results Page
@@ -121,7 +132,8 @@ body {
   transition-duration: 0.2s;
 }
 
-#return-to-home-button {
+#return-to-home-button,
+#filter-button {
   background-color: $primary_background;
   border: 1px solid transparent;
   border-radius: 5px;
@@ -133,7 +145,8 @@ body {
 }
 
 #search-button:hover,
-#return-to-home-button:hover {
+#return-to-home-button:hover,
+#filter-button:hover {
   box-shadow: 0 1px 1px 2px rgba(0, 0, 0, 0.2);
   border: 1px solid $primary_background;
   background-color: $tertiary_background;
@@ -171,7 +184,8 @@ body {
   }
 }
 
-#searched-ingredients {
+#searched-ingredients,
+#filter-form {
   display: flex;
   flex-direction: column;
   row-gap: 0.8rem;
@@ -190,6 +204,10 @@ body {
   }
 }
 
+#filter-options {
+  font-size: 0.95rem;
+}
+
 #results {
   width: 85%;
   margin-top: 0.5rem;
@@ -199,9 +217,9 @@ body {
 }
 
 #product-container {
-  display: grid;
-  grid-template-columns: 100%;
-  gap: 10px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
   width: 80%;
   margin: 0.5rem;
   margin-right: 1.5rem;
@@ -210,25 +228,34 @@ body {
 // Styling for Product cards
 .product-card {
   display: flex;
+  column-gap: 1rem;
   border: solid $primary_text;
   border-radius: 0.5rem;
-  padding: 1rem 1.25rem;
+  padding: 1rem;
   background-color: $secondary_background;
   box-shadow: 0 3px 3px 1px rgba(0, 0, 0, 0.24);
 
   .product-description {
-    flex-basis: 20rem;
+    display: flex;
+    flex-direction: column;
+    flex-basis: 20%;
+    align-self: center;
+    row-gap: 0.5rem;
 
     img {
       border-radius: 1rem;
       height: 7.5rem;
       width: 7.5rem;
+      align-self: center;
+      margin-bottom: 0.5rem;
+      box-shadow: 0 1px 1px 2px rgba(0, 0, 0, 0.2);
     }
   
-    h1 {
+    h2 {
       font-size: 1.5rem;
       color: $primary_text;
       margin: 0;
+      margin-bottom: 0.5rem;
 
       a {
         text-decoration: none;
@@ -251,20 +278,25 @@ body {
       }
     }
   
-    h2 {
+    h3 {
       text-align: left;
       font-size: 1.25rem;
       color: $secondary_text;
       margin: 0;
-  
-      span {
-        font-size: 1rem;
-      }
+    }
+
+    p {
+      font-size: 1rem;
+      margin: 0;
     }
   }
 
   .product-ingredients {
-    flex-basis: 40rem;
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.5rem;
+    flex-basis: 80%;
+    word-break: break-all;
 
     p {
       color: $tertiary_text;
@@ -294,6 +326,23 @@ body {
     margin-right: 1.5rem;
   }
 
+  #searched-body-and-filter {
+    display: flex;
+    column-gap: 1rem;
+  }
+
+  #searched-ingredients {
+    width: 50%;
+  }
+
+  #filter-options {
+    width: 50%;
+  }
+
+  #filter-form {
+    height: 68%;
+  }
+
   #product-container {
     width: 95%
   }
@@ -303,4 +352,12 @@ body {
   #searched-container {
     width: 80%;
   }
+}
+
+.brandFilterBox{
+  position: relative;
+  
+}
+.categoryFilterBox{
+  position: relative;
 }
