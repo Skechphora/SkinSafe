@@ -1,7 +1,9 @@
 // This file handles all error pages for react routers
 
-import React from 'react';
-import { useRouteError } from 'react-router-dom';
+/** This component has not been implemented in the application for erroneous routes, was a WIP **/
+
+import React from "react";
+import { useRouteError } from "react-router-dom";
 
 export default function ErrorPage() {
   const error = useRouteError();

@@ -1,4 +1,4 @@
-const pgSql = require('../models/pgSqlDatabase.js');
+const pgSql = require("../models/pgSqlDatabase.js");
 
 module.exports = {
   // Extracting data from DETAILS response
@@ -69,38 +69,32 @@ module.exports = {
     const { PRODUCTS } = await res.locals;
     for (const product of PRODUCTS) {
       let cat_id;
-
       const result = await pgSql.query(query, [product.category_id]);
 
-      // If the brand already exist in the DB
-      // Use its ID to add to the Product
+      // If the brand already exist in the DB Use its ID to add to the Product
       if (result.rows[0]) {
         cat_id = result.rows[0]._id;
       }
-      // Otherwise create a new Brand in the DB
-      // And get it's _id back
+      // Otherwise create a new Brand in the DB And get it's _id back
       else {
         const insert = await pgSql.query(create, [product.category_id]);
         const retrieve = await pgSql.query(query, [product.category_id]);
 
         cat_id = retrieve.rows[0]._id;
       }
-
       // replace previous Brand name with new brand_id
       newProducts.push({ ...product, category_id: cat_id });
     }
 
     res.locals.PRODUCTS = newProducts;
-    // console.log(newProducts);
     return next();
   },
 
   extractIngredients: async (req, res, next) => {
-    console.log('Running transformIngredientsStringBlock');
     // Access list of ingredients from the JSON file
 
     const ingredients = [];
-    const ingredientsJson = require('../models/ingredientsDatabase.json');
+    const ingredientsJson = require("../models/ingredientsDatabase.json");
     const allIngredients = ingredientsJson.ingredients;
 
     for (const { NAME } of allIngredients) {
@@ -108,7 +102,6 @@ module.exports = {
     }
 
     // New product to be sent
-
     res.locals.PRODUCTS = [];
 
     for (const product of res.locals.DETAILS) {
@@ -129,7 +122,6 @@ module.exports = {
   },
 
   // Insert data to the database
-
   insertProducts: async (req, res, next) => {
     try {
       const command = `
@@ -163,21 +155,18 @@ module.exports = {
   },
 
   insertIngredients: async (req, res, next) => {
-    console.log('Running saveIngredients');
     try {
       const command = `INSERT INTO ingredients (ingredient) VALUES ($1) ON CONFLICT DO NOTHING;`;
 
       for (let { parsedIngredients } of res.locals.PRODUCTS) {
-        console.log(parsedIngredients);
         for (const ingredient of parsedIngredients) {
           const result = await pgSql.query(command, [ingredient]);
         }
       }
-
       return next();
     } catch (err) {
       const error = {
-        log: `pgDBController.saveIngr ERROR::${JSON.stringify(err)}`,
+        log: `pgDBController.saveIngr ERROR: ${JSON.stringify(err)}`,
         message: `server error check the server log`,
       };
       next(error);
@@ -185,8 +174,6 @@ module.exports = {
   },
 
   insertProductIngredientJoinTable: async (req, res, next) => {
-    console.log('joint table');
-
     const commandJoint = `
       INSERT INTO product__ingredient (product_id, ingredient_id) 
       VALUES (
@@ -202,7 +189,6 @@ module.exports = {
 
     for (let product of res.locals.PRODUCTS) {
       for (let ingredient of product.parsedIngredients) {
-        console.log(product.product_id, ingredient);
         const jointResult = await pgSql.query(commandJoint, [
           product.product_id,
           ingredient,

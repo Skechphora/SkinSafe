@@ -1,18 +1,17 @@
-const fetch = require('node-fetch');
-require('dotenv').config({ path: './.env' });
+const fetch = require("node-fetch");
+require("dotenv").config({ path: "./.env" });
 
 module.exports = {
   // Product list API call
-
   fetchProductList: async (req, res, next) => {
     try {
       const url =
-        'https://sephora.p.rapidapi.com/products/list?categoryId=cat150006&pageSize=6&currentPage=7&sortBy=P_BEST_SELLING%3A1';
+        "https://sephora.p.rapidapi.com/products/list?categoryId=cat150006&pageSize=6&currentPage=7&sortBy=P_BEST_SELLING%3A1";
       const options = {
-        method: 'GET',
+        method: "GET",
         headers: {
-          'X-RapidAPI-Key': process.env.API_KEY,
-          'X-RapidAPI-Host': 'sephora.p.rapidapi.com',
+          "X-RapidAPI-Key": process.env.API_KEY,
+          "X-RapidAPI-Host": "sephora.p.rapidapi.com",
         },
       };
 
@@ -42,25 +41,24 @@ module.exports = {
     } catch (err) {
       const error = {
         log: `rapidApiController.getProductList error ${
-          typeof err === 'object' ? JSON.stringify(err) : err
+          typeof err === "object" ? JSON.stringify(err) : err
         }`,
         status: 400,
         message: `rapidApiController.getProductList error check server log`,
       };
-      console.error('error:' + err);
+      console.error("error:" + err);
     }
   },
 
   // Products'details API call
-
   fetchProductDetail: async (req, res, next) => {
     res.locals.DETAILS = [];
 
     const options = {
-      method: 'GET',
+      method: "GET",
       headers: {
-        'X-RapidAPI-Key': process.env.API_KEY,
-        'X-RapidAPI-Host': 'sephora.p.rapidapi.com',
+        "X-RapidAPI-Key": process.env.API_KEY,
+        "X-RapidAPI-Host": "sephora.p.rapidapi.com",
       },
     };
 
@@ -71,9 +69,7 @@ module.exports = {
       const response = await fetch(url, options);
       const productDetail = await response.json();
 
-      // Two data that I want
-      // Want to add this category to my product
-      //
+      // Two data that I want to add this category to my product
       const { ingredientDesc } = productDetail.currentSku;
       const category = productDetail.parentCategory.displayName;
 
@@ -81,13 +77,11 @@ module.exports = {
       const newProduct = {
         ...product,
         category_id: category,
-        ingredients: ingredientDesc || 'none',
+        ingredients: ingredientDesc || "none",
       };
 
       res.locals.DETAILS.push(newProduct);
     }
-
-    // console.log(res.locals.DETAILS);
     return next();
   },
 };

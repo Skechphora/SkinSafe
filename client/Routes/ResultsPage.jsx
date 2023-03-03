@@ -4,8 +4,8 @@ import SearchedIngredients from "../Components/SearchedIngredients";
 import ResultsDisplay from "../Components/ResultsDisplay";
 import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
-import { update_allergens, update_results } from '../Slices/productsSlice';
-import FilterComponent from "../Components/FilterComponent"
+import { update_allergens, update_results } from "../Slices/productsSlice";
+import FilterComponent from "../Components/FilterComponent";
 
 const ResultsPage = () => {
   const dispatch = useDispatch();
@@ -16,15 +16,15 @@ const ResultsPage = () => {
     // dispatched 'update_allergens' with an empty string to reset our state of allergens
     // dispatched 'update_results' with an empty array to reset our state of results
     // finally, navigate back to the landing page
-    dispatch(update_allergens(''));
+    dispatch(update_allergens(""));
     dispatch(update_results([]));
-    navigate('/');
-  }
+    navigate("/");
+  };
 
   return (
     <div className="results-page">
       {/* This part renders Searched Allergen Header, Searched Ingredients component, and a Return to Home Button */}
-       <div id="searched-container"> 
+      <div id="searched-container">
         <div id="searched">
           <div id="searched-header">
             <h4>Searched Allergens: </h4>
@@ -37,10 +37,13 @@ const ResultsPage = () => {
               <FilterComponent />
             </div>
           </div>
-          <button 
+          <button
             id="return-to-home-button"
-            onClick={() => { handleClick(); }}
-          >Return to Home
+            onClick={() => {
+              handleClick();
+            }}
+          >
+            Return to Home
           </button>
         </div>
       </div>
