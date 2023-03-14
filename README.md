@@ -1,4 +1,4 @@
-# Scratch-Project
+# SkinSafe
 
 ## Summary
 A fullstack webpage into which users can put input a skincare ingredient and see which Sephora products 
