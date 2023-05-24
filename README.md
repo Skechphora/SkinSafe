@@ -4,6 +4,8 @@
 A fullstack webpage into which users can put input a skincare ingredient and see which Sephora products 
 are free of those ingredients.
 
+link to demo
+skin-safe-ic8ismd9p-skinsafe.vercel.app
 
 ## Tech Stack
 Programming Language:
