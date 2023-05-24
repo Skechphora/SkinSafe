@@ -5,7 +5,7 @@ A fullstack webpage into which users can put input a skincare ingredient and see
 are free of those ingredients.
 
 link to demo
-skin-safe-ic8ismd9p-skinsafe.vercel.app
+https://skin-safe-omega.vercel.app/
 
 ## Tech Stack
 Programming Language:
